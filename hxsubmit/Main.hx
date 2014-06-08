@@ -1,5 +1,7 @@
 package;
 
+import haxe.Json;
+
 /**
  * Haxelib submission tool 
  */ 
@@ -7,6 +9,8 @@ class Main
 {
     public static function main()
     {
+        Sys.setCwd(Sys.getEnv('PWD'));
+
         //if no args, display help
         if (Sys.args().length == 0)
         {
@@ -14,29 +18,52 @@ class Main
             Sys.exit(0);
         }
 
+        //parse args
+        var config = Config.get(Sys.args());
+
         //must have a haxelib conf file
         if (!sys.FileSystem.exists('haxelib.json')) 
             Utils.error('haxelib.json not found');
 
-        //parse args
-        var config = Config.get(Sys.args());
+        var haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
+        haxelib = Haxelib.update(config, haxelib);
 
-        //update semver
-        var updatedVersion = Haxelib.update(config);
+
+        //side effects code
+#if debug
+        trace(haxelib);
+#else
+        sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
+#end
+
+        getCommands(config, haxelib).map(function (command) {
+#if debug
+            trace(command);
+#else
+            Utils.command(command.bin, command.args);
+#end
+        });
+    }
+
+    static function getCommands(config:Config, haxelib:Dynamic)
+    {
+        var commands = new Array<Command>();
 
         //commit in git
         if (!config.noCommit)
-            Git.commit(updatedVersion, config.comment);
+            commands = commands.concat(Git.commit(haxelib.version, config.comment));
 
         //push to git origin remote
         if (!config.noPush && !config.noCommit)
-            Git.push(config.remote);
+            commands = commands.concat(Git.push(config.remote));
 
         //submit to haxelib or install locally
         if (!config.local)
-            Haxelib.submit(config);
+            commands = commands.concat(Haxelib.submit(config));
         else
-            Haxelib.local(config);
+            commands = commands.concat(Haxelib.local(config));
+
+        return commands;
     }
 
    /**

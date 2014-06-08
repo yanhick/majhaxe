@@ -5,21 +5,31 @@ package;
  */ 
 class Git
 {
-    public static function push(remote)
+    public static function push(remote):Array<Command>
     {
-        Utils.command('git', ['push', remote, Constants.DEFAULT_BRANCH]);
-        Utils.command('git', ['push', remote, Constants.GIT_TAGS]);
+        return [
+            ['push', remote, Constants.DEFAULT_BRANCH],
+            ['push', remote, Constants.GIT_TAGS]
+        ].map(getGitCommand.bind());
     }
 
-    public static function commit(version, comment)
+    public static function commit(version, comment):Array<Command>
     {
         if (comment == null)
             comment = 'update to version: ' + version;
 
-        Utils.command('git', ['add', Constants.HAXELIB_JSON]);
+        return [
+            ['add', Constants.HAXELIB_JSON],
+            ['commit', '-m', comment],
+            ['tag', version]
+         ].map(getGitCommand.bind());
+    }
 
-        Utils.command('git', ['commit', '-m', comment]);
-
-        Utils.command('git', ['tag', version]);
+    static function getGitCommand(args):Command
+    {
+        return {
+            bin: 'git',
+            args: args
+        }
     }
 }   

@@ -18,7 +18,7 @@ class Config
             case 'minor', 'major', 'patch', 'build': first;
             default: first;
                 if (!SemVer.valid(first))
-                    Utils.error('semver is not valid');
+                    throw 'semver is not valid';
 
                 first;
         }

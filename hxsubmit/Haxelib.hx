@@ -1,6 +1,5 @@
 package;
 
-import haxe.Json;
 import semver.SemVer;
 
 /**
@@ -12,20 +11,17 @@ class Haxelib
     //UPDATE HAXELIB.JSON
 
     /**
-     * update the semver of the haxelib.josn file
+     * update the semver of the haxelib.json file
      */
-    public static function update(config:Config):String
+    public static function update(config:Config, haxelib:Dynamic):Dynamic
     {
-        var haxelib:Dynamic = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
         haxelib.version = updateVersion(config.semver, haxelib.version);
 
         //update release note as well if a comment is provided
         if (config.comment != null)
             haxelib.releasenote = config.comment;
 
-        sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
-
-        return haxelib.version;
+        return haxelib;
     }
 
     /**
@@ -40,7 +36,7 @@ class Haxelib
         return semverUpdate;
     }
 
-    static function isSemverConstant(semverUpdate:String)
+    static function isSemverConstant(semverUpdate:String):Bool
     {
         return semverUpdate == 'minor' || semverUpdate == 'major' || semverUpdate == 'patch' || semverUpdate == 'build';
     }
@@ -61,43 +57,57 @@ class Haxelib
 
     //SUBMIT TO HAXELIB
 
-    public static function submit(config:Config)
+    public static function submit(config:Config):Array<Command>
     {
-        zip(config.exclude);
-
-        Utils.command('haxelib', ['submit', Constants.HAXELIB_ZIP]);
-
-        rmZip();
+        return [
+            zip(config.exclude),
+            {
+                bin: 'haxelib',
+                args: ['submit', Constants.HAXELIB_ZIP]
+            },
+            rmZip()
+        ];
     }
 
     //INSTALL LOCALLY
 
-    public static function local(config:Config)
+    public static function local(config:Config):Array<Command>
     {
-        zip(config.exclude);
-
-        Utils.command('haxelib', ['local', Constants.HAXELIB_ZIP]);
-
-        rmZip();
+        return [
+            zip(config.exclude),
+            {
+                bin: 'haxelib',
+                args: ['local', Constants.HAXELIB_ZIP]
+            },
+            rmZip()
+        ];
     }
 
     /**
      * create zip with all files in folder expect explicitely
      * excluded ones
      */
-    static function zip(exclude:String)
+    static function zip(exclude:String):Command
     {
+        var cmd = {
+            bin: 'zip',
+            args: ['-r', 'haxelib', '*']
+        }
+
         if (exclude != null)
-            Utils.command('zip', ['-r', 'haxelib', '*', '-x', exclude]);
-        else
-            Utils.command('zip', ['-r', 'haxelib', '*']);
+            cmd.args.concat(['-x', exclude]);
+
+        return cmd;
     }
 
     /**
      * delete zip
      */
-    static function rmZip()
+    static function rmZip():Command
     {
-        Utils.command('rm', [Constants.HAXELIB_ZIP]);
+        return {
+            bin: 'rm',
+            args: [Constants.HAXELIB_ZIP]
+        }
     }
 }
