@@ -5,7 +5,7 @@ package;
  */ 
 class Utils
 {
-    public static function error(err)
+    public static function error(err:String)
     {
         Sys.println(err);
         Sys.exit(1);

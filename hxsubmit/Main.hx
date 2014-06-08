@@ -18,16 +18,25 @@ class Main
             Sys.exit(0);
         }
 
-        //parse args
-        var config = Config.get(Sys.args());
+        var haxelib = null;
+        var config = null;
 
-        //must have a haxelib conf file
-        if (!sys.FileSystem.exists('haxelib.json')) 
-            Utils.error('haxelib.json not found');
+        try 
+        {
+            //parse args
+            config = Config.get(Sys.args());
 
-        var haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
-        haxelib = Haxelib.update(config, haxelib);
+            //must have a haxelib conf file
+            if (!sys.FileSystem.exists('haxelib.json')) 
+                throw 'haxelib.json not found';
 
+            haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
+            haxelib = Haxelib.update(config, haxelib);
+        }
+        catch (e:Dynamic)
+        {
+            Utils.error(e);
+        }
 
         //side effects code
 #if debug
