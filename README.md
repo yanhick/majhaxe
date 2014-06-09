@@ -6,11 +6,15 @@ Neko tool to update haxelibs.
 - commit and push to git
 - submit to haxelib
 
+######Linux/MacOS only
+
 ###Install
 
 ```
 haxelib install hx-submit
 ```
+
+
 
 ###Usage
 
@@ -33,5 +37,11 @@ haxelib run hx-submit [ <newversion> | major | minor | patch | build]
 ###Build
 
 ```
-haxe build.hxml
+make
+```
+
+###Test
+
+```
+make run-tests
 ```
