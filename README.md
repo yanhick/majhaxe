@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/yanhick/hx-submit.svg?branch=master)](https://travis-ci.org/yanhick/hx-submit)
 hx-submit
 =========
 
