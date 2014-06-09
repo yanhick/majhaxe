@@ -10,6 +10,8 @@ before_script:
   - haxelib setup ~/haxelib
   - haxelib install arguable
   - haxelib install buddy
+  - git clone https://github.com/dpeek/hx-semver
+  - haxelib dev hx-semver hx-semver/src
 
 script:
   - make run-test
