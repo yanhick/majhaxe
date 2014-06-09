@@ -38,7 +38,7 @@ class Config
             exclude = args.get('exclude').value;
 
         return new Config(comment, semver, args.has('no-commit'), 
-                args.has('no-push'), remote, exclude, args.has('local'));
+                args.has('no-push'), remote, exclude, args.has('local'), args.has('dry-run'));
     }
 
     //an optional comment used for the commit and release note
@@ -62,9 +62,12 @@ class Config
     //flag to install haxelib locally instead of submitting it
     public var local(default, null): Bool;
 
+    //flag to test the command that will be run without actually running them
+    public var dryRun(default, null):Bool;
+
     private function new(comment:String, semver:String, 
             noCommit:Bool, noPush:Bool,
-            remote:String, exclude:String, local:Bool) 
+            remote:String, exclude:String, local:Bool, dryRun:Bool) 
     {
         this.comment = comment;
         this.semver = semver;
@@ -73,5 +76,6 @@ class Config
         this.remote = remote;
         this.exclude = exclude;
         this.local = local;
+        this.dryRun = dryRun;
     }
 }
