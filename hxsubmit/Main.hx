@@ -45,22 +45,26 @@ class Main
             Utils.error(e);
         }
 
-        //side effects code
-#if debug
-        trace(haxelib);
-#else
-        sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
-#end
+        exec(config, haxelib);
+    }
+
+    /**
+     * Execute IO if not a dry run
+     */
+    static function exec(config:Config, haxelib:Dynamic)
+    {
+        if (!config.dryRun)
+            sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
 
         getCommands(config, haxelib).map(function (command) {
-#if debug
-            trace(command);
-#else
-            Utils.command(command.bin, command.args);
-#end
+            if (!config.dryRun)
+                Utils.command(command.bin, command.args);
         });
     }
 
+    /**
+     * Return all the bash commands to execute
+     */
     static function getCommands(config:Config, haxelib:Dynamic)
     {
         var commands = new Array<Command>();
@@ -100,6 +104,7 @@ class Main
         Sys.println('  --remote - an alternate remote to push to (defaults to origin)');
         Sys.println('  --exclude - a space separate list of files to exclude from the zip submitted to haxelib');
         Sys.println('  --local - install haxelib locally instead of submitting it');
+        Sys.println('  --dry-run - print the commands that would be run without actually running them');
         Sys.println('');
     }
 }

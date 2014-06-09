@@ -26,7 +26,8 @@ haxelib run hx-submit [ <newversion> | major | minor | patch | build]
 --no-push //prevent pushing the haxelib.json commit and tag to the git remote
 --remote //an alternate remote to push to (defaults to origin)
 --exclude //a space separate list of files to exclude from the zip submitted to haxelib
---local - install haxelib locally instead of submitting it
+--local //install haxelib locally instead of submitting it
+--dry-run //print the commands that would be run without actually running them
 ```
 
 ###Build
