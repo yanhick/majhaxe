@@ -50,7 +50,7 @@ class Haxelib
             case 'patch': Patch;
             case 'build': Build;
             default: 
-              Utils.error('not a semver release');
+              throw 'not a semver release';
               null;
         }
     }
@@ -63,7 +63,9 @@ class Haxelib
             zip(config.exclude),
             {
                 bin: 'haxelib',
-                args: ['submit', Constants.HAXELIB_ZIP]
+                args: ['submit', Constants.HAXELIB_ZIP],
+                err: 'could not submit haxelib.zip to haxelib',
+                info:'submitting haxelib.zip to haxelib'
             },
             rmZip()
         ];
@@ -77,7 +79,9 @@ class Haxelib
             zip(config.exclude),
             {
                 bin: 'haxelib',
-                args: ['local', Constants.HAXELIB_ZIP]
+                args: ['local', Constants.HAXELIB_ZIP],
+                err: 'could not install haxelib.zip locally',
+                info:'installing haxelib.zip locally'
             },
             rmZip()
         ];
@@ -91,7 +95,9 @@ class Haxelib
     {
         var cmd = {
             bin: 'zip',
-            args: ['-r', 'haxelib', '*']
+            args: ['-r', 'haxelib', '*'],
+            err: 'could not create haxelib.zip',
+            info:'creating haxelib.zip, excluding: ' + exclude
         }
 
         if (exclude != null)
@@ -107,7 +113,9 @@ class Haxelib
     {
         return {
             bin: 'rm',
-            args: [Constants.HAXELIB_ZIP]
+            args: [Constants.HAXELIB_ZIP],
+            err: 'could not delete haxelib.zip',
+            info:'deleting haxelib.zip'
         }
     }
 }

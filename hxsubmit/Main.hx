@@ -42,24 +42,37 @@ class Main
         }
         catch (e:Dynamic)
         {
-            Utils.error(e);
+            error(e);
         }
 
         exec(config, haxelib);
     }
 
     /**
-     * Execute IO if not a dry run
+     * Execute IO if not a dry run. Print info for each command
      */
     static function exec(config:Config, haxelib:Dynamic)
     {
+        Sys.println('saving the updated haxelib.json');
         if (!config.dryRun)
             sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
 
         getCommands(config, haxelib).map(function (command) {
-            if (!config.dryRun)
-                Utils.command(command.bin, command.args);
+            Sys.println(command.info);
+            if (!config.dryRun) {
+                if (Sys.command(command.bin, command.args) != 0)
+                    error(command.err);
+            }
         });
+    }
+
+    /**
+     * Print error and stop process
+     */
+    static function error(err:String)
+    {
+        Sys.println(err);
+        Sys.exit(1);
     }
 
     /**
