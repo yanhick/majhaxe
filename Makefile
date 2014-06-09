@@ -2,4 +2,5 @@ default:
 	haxe build.hxml
 
 run-test:
-	haxe -lib buddy -main Main -cp test --interp
+	haxe build-tests.hxml
+	neko test.n
