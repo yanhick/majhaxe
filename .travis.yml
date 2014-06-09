@@ -12,4 +12,4 @@ before_script:
   - haxelib install buddy
 
 script:
-  - make run-tests
+  - make run-test
