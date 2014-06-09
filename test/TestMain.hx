@@ -29,5 +29,35 @@ class TestMain extends BuddySuite implements Buddy {
                 config.semver.should.equal('minor');
             });
         });
+
+        describe('Haxelib', function () {
+            describe('#local', function () {
+                it('should return commands to install haxelib locally', function () {
+                    var commands = Haxelib.local(Config.get(['minor']));
+                    commands[0].bin.should.equal('zip');
+                    commands[1].bin.should.equal('haxelib');
+                    commands[1].args[0].should.equal('local');
+                    commands[2].bin.should.equal('rm');
+                });
+            });
+
+            describe('#submit', function () {
+                it('should submit to haxelib', function () {
+                    var commands = Haxelib.submit(Config.get(['minor']));
+                    commands[0].bin.should.equal('zip');
+                    commands[1].bin.should.equal('haxelib');
+                    commands[1].args[0].should.equal('submit');
+                    commands[2].bin.should.equal('rm');
+                });
+            });
+
+            describe('#update', function () {
+                it('should update the haxelib version', function () {
+                    var haxelib = Haxelib.update(Config.get(['minor']), {version: "0.1.0"});
+                    var version:String = haxelib.version;
+                    version.should.equal('0.2.0');
+                });
+            });
+        });
     }
 }
