@@ -1,0 +1,7 @@
+-neko test.n
+-main TestMain
+-cp hxsubmit
+-cp test
+-lib hx-semver
+-lib arguable
+-lib buddy
