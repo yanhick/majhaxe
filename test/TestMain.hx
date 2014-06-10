@@ -3,31 +3,31 @@ package;
 import buddy.*;
 using buddy.Should;
 
+import Command;
+
 
 class TestMain extends BuddySuite implements Buddy {
 
     public function new()
     {
+        var getBin = function (command:Command) {
+            return switch(command.cmd) {
+                case bash(bin, args): bin;
+                default: throw 'not a bash command';
+            }
+        };
+
         describe('Git', function () {
             it('should return commands to commit to git', function () {
-                var commands = Git.commit('0.1.0', null);
-                switch(commands[0]) {
-                    case bash(value):
-                        value.bin.should.be('git');
-                        value.args.length.should.be(2);
-                    default:
-                }
+                var commands:Array<Command> = Git.commit('0.1.0', null);
+                commands.length.should.be(3);
+                getBin(commands[0]).should.be('git');
             });
 
             it('should return commands to push to git', function () {
                 var commands = Git.push('origin');
-                switch(commands[0]) {
-                    case bash(value):
-                        value.bin.should.be('git');
-                        value.args[0].should.be('push');
-                        value.args[1].should.be('origin');
-                    default:
-                }
+                commands.length.should.be(2);
+                getBin(commands[0]).should.be('git');
             });
         });
 
@@ -42,34 +42,16 @@ class TestMain extends BuddySuite implements Buddy {
             describe('#local', function () {
                 it('should return commands to install haxelib locally', function () {
                     var commands = Haxelib.local(Config.get(['minor']));
-                    switch(commands[0]) {
-                        case bash(value):
-                            value.bin.should.be('zip');
-                        default:
-                            
-                    }
-                    switch(commands[1]) {
-                        case bash(value):
-                            value.bin.should.be('haxelib');
-                        default:
-                    }
+                    commands.length.should.be(3);
+                    getBin(commands[0]).should.be('zip');
                 });
             });
 
             describe('#submit', function () {
                 it('should submit to haxelib', function () {
                     var commands = Haxelib.submit(Config.get(['minor']));
-                    switch(commands[0]) {
-                        case bash(value):
-                            value.bin.should.be('zip');
-                        default:
-                            
-                    }
-                    switch(commands[1]) {
-                        case bash(value):
-                            value.bin.should.be('haxelib');
-                        default:
-                    }
+                    commands.length.should.be(3);
+                    getBin(commands[0]).should.be('zip');
                 });
             });
 
