@@ -20,10 +20,13 @@ class Help
     {
         return 
 'MAJHAXE
-Update semver version, commit and push to git and submit to haxelib
+CLI tool to kick some Haxe
 -------------------------------------------------
 usage:
-majhaxe [ <newversion> | major | minor | patch | build]
+
+submit [ <newversion> | major | minor | patch | build]
+Update semver version, commit and push to git and submit to haxelib
+
 options:
   --m <optional message> - used as commit message and haxelib.json release note
   --no-commit - prevent commit the haxelib.json update to git
