@@ -1,6 +1,6 @@
 -neko test.n
 -main TestMain
--cp hxsubmit
+-cp majhaxe
 -cp test
 -lib hx-semver
 -lib arguable
