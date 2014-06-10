@@ -8,7 +8,7 @@ import haxe.Json;
  */
 class Submit
 {
-    public static function get(config:Config, haxelib:Dynamic):Array<Command>
+    public static function get(config:Config):Array<Command>
     {
         //must have a haxelib conf file
         if (!sys.FileSystem.exists('haxelib.json')) 
@@ -17,7 +17,18 @@ class Submit
         if (config.semver == null)
             return throw 'first argument need to be a valid semver';
 
+        var haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
+        haxelib = Haxelib.update(config, haxelib);
+
         var commands = new Array<Command>();
+
+        commands.push({
+            info: 'updating haxelib.json',
+            err: 'could not save updated haxelib.json',
+            cmd: func(function () {
+                if (!config.dryRun)
+                    sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
+        })});
 
         commands.push({
             info: 'saving the updated haxelib.json',
@@ -25,7 +36,7 @@ class Submit
             cmd: func(function () {
                 if (!config.dryRun)
                     sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
-            })});
+        })});
 
         //commit in git
         if (!config.noCommit)

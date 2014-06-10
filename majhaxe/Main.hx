@@ -23,27 +23,13 @@ class Main
         if (args.length == 0) Help.get
         else getCommand(args.shift());
 
-        var haxelib = null;
-        var config = null;
-
-        try 
-        {
-            //parse args
-            config = Config.get(args);
-
-            //must have a haxelib conf file
-            if (!sys.FileSystem.exists('haxelib.json')) 
-                throw 'haxelib.json not found';
-
-            haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
-            haxelib = Haxelib.update(config, haxelib);
+        var config = Config.get(args);
+        try {
+            exec(command.bind(Config.get(args)), config);
         }
-        catch (e:Dynamic)
-        {
+        catch (e:Dynamic) {
             error(e);
         }
-
-        exec(command.bind(config, haxelib), config, haxelib);
     }
 
     static function getCommand(arg:String)
@@ -56,13 +42,10 @@ class Main
     }
 
     /**
-     * Execute IO if not a dry run. Print info for each command
+     * Execute all IO commands if not a dry run. Print info and/or error for each command
      */
-    static function exec(command:Void->Array<Command>, config:Config, haxelib:Dynamic)
+    static function exec(command:Void->Array<Command>, config:Config)
     {
-        if (!config.dryRun)
-            sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
-
         command().map(function (command) {
             Sys.println(command.info);
             switch(command.cmd) 
@@ -72,6 +55,7 @@ class Main
                         if (Sys.command(bin, args) != 0)
                             error(command.err);
                     }
+
                 case func(fn): fn();
             }
         });

@@ -7,7 +7,7 @@ import Command;
  */
 class Help
 {
-    public static function get(config:Config, haxelib:Dynamic):Array<Command>
+    public static function get(config:Config):Array<Command>
     {
         return [{
             cmd: func(Sys.println.bind(usage())),
