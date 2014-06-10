@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/yanhick/hx-submit.svg?branch=master)](https://travis-ci.org/yanhick/hx-submit)
-hx-submit
+[![Build Status](https://travis-ci.org/yanhick/majhaxe?branch=master)](https://travis-ci.org/yanhick/majhaxe)
+majhaxe
 =========
 
 Neko tool to update haxelibs.
@@ -12,7 +12,7 @@ Neko tool to update haxelibs.
 ###Install
 
 ```
-haxelib install hx-submit
+haxelib install majhaxe
 ```
 
 
@@ -20,7 +20,7 @@ haxelib install hx-submit
 ###Usage
 
 ```
-haxelib run hx-submit [ <newversion> | major | minor | patch | build]
+haxelib run majhaxe [ <newversion> | major | minor | patch | build]
 ```
 
 ###Additional options

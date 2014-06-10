@@ -1,5 +1,5 @@
 -neko run.n
 -main Main
--cp hxsubmit
+-cp majhaxe
 -lib hx-semver
 -lib arguable
