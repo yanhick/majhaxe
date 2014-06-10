@@ -63,13 +63,12 @@ class Haxelib
         return [
             zip(config.exclude),
             {
-                bin: 'haxelib',
-                args: ['submit', Constants.HAXELIB_ZIP],
+                cmd: bash('haxelib', ['submit', Constants.HAXELIB_ZIP]),
                 err: 'could not submit haxelib.zip to haxelib',
                 info:'submitting haxelib.zip to haxelib'
             },
             rmZip()
-        ].map(function (item) return bash(item));
+        ];
     }
 
     //INSTALL LOCALLY
@@ -79,42 +78,39 @@ class Haxelib
         return [
             zip(config.exclude),
             {
-                bin: 'haxelib',
-                args: ['local', Constants.HAXELIB_ZIP],
+                cmd: bash('haxelib', ['local', Constants.HAXELIB_ZIP]),
                 err: 'could not install haxelib.zip locally',
                 info:'installing haxelib.zip locally'
             },
             rmZip()
-        ].map(function (item) return bash(item));
+        ];
     }
 
     /**
      * create zip with all files in folder expect explicitely
      * excluded ones
      */
-    static function zip(exclude:String):Bash
+    static function zip(exclude:String):Command
     {
-        var cmd = {
-            bin: 'zip',
-            args: ['-r', 'haxelib', '*'],
+        var args = ['-r', 'haxelib', '*'];
+
+        if (exclude != null)
+            args.concat(['-x', exclude]);
+
+        return {
+            cmd: bash('zip', args),
             err: 'could not create haxelib.zip',
             info:'creating haxelib.zip, excluding: ' + exclude
         }
-
-        if (exclude != null)
-            cmd.args.concat(['-x', exclude]);
-
-        return cmd;
     }
 
     /**
      * delete zip
      */
-    static function rmZip():Bash
+    static function rmZip():Command
     {
         return {
-            bin: 'rm',
-            args: [Constants.HAXELIB_ZIP],
+            cmd: bash('rm', [Constants.HAXELIB_ZIP]),
             err: 'could not delete haxelib.zip',
             info:'deleting haxelib.zip'
         }

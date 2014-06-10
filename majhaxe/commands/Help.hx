@@ -10,11 +10,10 @@ class Help
     public static function get(config:Config, haxelib:Dynamic):Array<Command>
     {
         return [{
-            bin: 'echo',
-            args: [usage()],
+            cmd: bash('echo', [usage()]),
             err: 'could not display help',
             info: ''
-        }].map(function (item) return bash(item));
+        }];
     }
 
     static function usage()

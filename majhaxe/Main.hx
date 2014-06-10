@@ -65,12 +65,12 @@ class Main
             sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
 
         command().map(function (command) {
-            switch(command) 
+            Sys.println(command.info);
+            switch(command.cmd) 
             {
-                case bash(command):
-                    Sys.println(command.info);
+                case bash(bin, args):
                     if (!config.dryRun) {
-                        if (Sys.command(command.bin, command.args) != 0)
+                        if (Sys.command(bin, args) != 0)
                             error(command.err);
                     }
                 case func(fn): fn();

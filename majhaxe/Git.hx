@@ -18,7 +18,7 @@ class Git
                     ['push', remote, Constants.GIT_TAGS],
                     'could not push tags to remote: ' + remote + ' ,on branch: ' + Constants.DEFAULT_BRANCH,
                     'pushing tags to remote: ' + remote + ' ,on branch: ' + Constants.DEFAULT_BRANCH)
-        ].map(function (item) return bash(item));
+        ];
     }
 
     public static function commit(version, comment):Array<Command>
@@ -39,16 +39,15 @@ class Git
                     ['tag', version],
                     'could not create a new tag', 
                     'creating tag: ' + version)
-        ].map(function (item) return bash(item));
+        ];
     }
 
-    static function getGitCommand(args, err, info):Bash
+    static function getGitCommand(args, err, info):Command
     {
         return {
-            bin: 'git',
-            args: args,
+            cmd: bash('git', args),
             err: err,
             info: info
         }
     }
-}   
+}

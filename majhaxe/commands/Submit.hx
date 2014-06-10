@@ -19,14 +19,13 @@ class Submit
 
         var commands = new Array<Command>();
 
-        commands.push(func(function () {
-
-            Sys.println('saving the updated haxelib.json');
-
-            if (!config.dryRun)
-                sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
-
-        }));
+        commands.push({
+            info: 'saving the updated haxelib.json',
+            err: 'could not save updated haxelib.json',
+            cmd: func(function () {
+                if (!config.dryRun)
+                    sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
+            })});
 
         //commit in git
         if (!config.noCommit)
