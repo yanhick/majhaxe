@@ -60,7 +60,6 @@ class Main
      */
     static function exec(command:Void->Array<Command>, config:Config, haxelib:Dynamic)
     {
-        Sys.println('saving the updated haxelib.json');
         if (!config.dryRun)
             sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
 
