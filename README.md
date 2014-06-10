@@ -4,11 +4,6 @@ majhaxe
 
 CLI tool to kick some Haxe
 
-Neko tool to update haxelibs.
-- update the semver version
-- commit and push to git
-- submit to haxelib
-
 ######Linux/MacOS only
 
 ###Install
