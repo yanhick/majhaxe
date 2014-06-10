@@ -105,11 +105,11 @@ class Main
     static function usage()
     {
         Sys.println('');
-        Sys.println('HX-SUBMIT');
+        Sys.println('MAJHAXE');
         Sys.println('Update semver version, commit and push to git and submit to haxelib');
         Sys.println('-------------------------------------------------');
         Sys.println('usage:');
-        Sys.println('hx-submit [ <newversion> | major | minor | patch | build]');
+        Sys.println('majhaxe [ <newversion> | major | minor | patch | build]');
         Sys.println('options:');
         Sys.println('  --m <optional message> - used as commit message and haxelib.json release note');
         Sys.println('  --no-commit - prevent commit the haxelib.json update to git');
