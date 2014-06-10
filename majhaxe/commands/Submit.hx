@@ -17,7 +17,13 @@ class Submit
         if (config.semver == null)
             return throw 'first argument need to be a valid semver';
 
-        var haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
+        var haxelib = null;
+        try {
+            haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
+        }
+        catch(e:Dynamic) {
+            return throw 'could not parse haxelib.json';
+        }
         haxelib = Haxelib.update(config, haxelib);
 
         var commands = new Array<Command>();
