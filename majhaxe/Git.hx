@@ -1,5 +1,7 @@
 package;
 
+import Command;
+
 /**
  * Communicate with git 
  */ 
@@ -43,10 +45,9 @@ class Git
     static function getGitCommand(args, err, info):Command
     {
         return {
-            bin: 'git',
-            args: args,
+            cmd: bash('git', args),
             err: err,
             info: info
         }
     }
-}   
+}

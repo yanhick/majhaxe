@@ -2,6 +2,8 @@
 majhaxe
 =========
 
+CLI tool to kick some Haxe
+
 Neko tool to update haxelibs.
 - update the semver version
 - commit and push to git
@@ -19,11 +21,13 @@ haxelib install majhaxe
 
 ###Usage
 
-```
-haxelib run majhaxe [ <newversion> | major | minor | patch | build]
-```
+####Submit
 
-###Additional options
+Update semver version, commit and push to git and submit to haxelib
+
+```
+haxelib run majhaxe submit [ <newversion> | major | minor | patch | build]
+```
 
 ```
 --m <optional message> //used as commit message and haxelib.json release note

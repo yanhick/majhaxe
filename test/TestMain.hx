@@ -3,30 +3,38 @@ package;
 import buddy.*;
 using buddy.Should;
 
+import Command;
+
 
 class TestMain extends BuddySuite implements Buddy {
 
     public function new()
     {
+        var getBin = function (command:Command) {
+            return switch(command.cmd) {
+                case bash(bin, args): bin;
+                default: throw 'not a bash command';
+            }
+        };
+
         describe('Git', function () {
             it('should return commands to commit to git', function () {
-                var commands = Git.commit('0.1.0', null);
-                commands[0].bin.should.equal('git');
-                commands[0].args.length.should.equal(2);
+                var commands:Array<Command> = Git.commit('0.1.0', null);
+                commands.length.should.be(3);
+                getBin(commands[0]).should.be('git');
             });
 
             it('should return commands to push to git', function () {
                 var commands = Git.push('origin');
-                commands[0].bin.should.equal('git');
-                commands[0].args[0].should.equal('push');
-                commands[0].args[1].should.equal('origin');
+                commands.length.should.be(2);
+                getBin(commands[0]).should.be('git');
             });
         });
 
         describe('Config', function () {
             it('should create a config', function () {
                 var config = Config.get(['minor']);
-                config.semver.should.equal('minor');
+                config.semver.should.be('minor');
             });
         });
 
@@ -34,20 +42,16 @@ class TestMain extends BuddySuite implements Buddy {
             describe('#local', function () {
                 it('should return commands to install haxelib locally', function () {
                     var commands = Haxelib.local(Config.get(['minor']));
-                    commands[0].bin.should.equal('zip');
-                    commands[1].bin.should.equal('haxelib');
-                    commands[1].args[0].should.equal('local');
-                    commands[2].bin.should.equal('rm');
+                    commands.length.should.be(3);
+                    getBin(commands[0]).should.be('zip');
                 });
             });
 
             describe('#submit', function () {
                 it('should submit to haxelib', function () {
                     var commands = Haxelib.submit(Config.get(['minor']));
-                    commands[0].bin.should.equal('zip');
-                    commands[1].bin.should.equal('haxelib');
-                    commands[1].args[0].should.equal('submit');
-                    commands[2].bin.should.equal('rm');
+                    commands.length.should.be(3);
+                    getBin(commands[0]).should.be('zip');
                 });
             });
 
@@ -55,7 +59,7 @@ class TestMain extends BuddySuite implements Buddy {
                 it('should update the haxelib version', function () {
                     var haxelib = Haxelib.update(Config.get(['minor']), {version: "0.1.0"});
                     var version:String = haxelib.version;
-                    version.should.equal('0.2.0');
+                    version.should.be('0.2.0');
                 });
             });
         });

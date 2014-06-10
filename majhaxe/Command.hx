@@ -1,15 +1,20 @@
 package;
 
 /**
- * Represents a bash command
+ * executable code, either as bash or func
+ */ 
+enum Exec
+{
+    bash(bin:String, args:Array<String>);
+    func(fun:Void->Void);
+}
+
+/**
+ * a generic command, executed via bash or a haxe function
  */
 typedef Command =
 {
-    //an executable name
-    var bin:String;
-
-    //the arguments to call the executable with
-    var args:Array<String>;
+    var cmd:Exec;
 
     //an error message to print if the executable returns an error
     var err:String;
