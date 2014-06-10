@@ -1,6 +1,7 @@
 package;
 
 import haxe.Json;
+import commands.*;
 
 /**
  * Haxelib submission tool 
@@ -18,12 +19,9 @@ class Main
             Sys.setCwd(args.pop());
         }
 
-        //if no args, display help
-        if (args.length == 0)
-        {
-            usage();
-            Sys.exit(0);
-        }
+        var command = 
+        if (args.length == 0) Help.get
+        else getCommand(args.shift());
 
         var haxelib = null;
         var config = null;
@@ -45,23 +43,37 @@ class Main
             error(e);
         }
 
-        exec(config, haxelib);
+        exec(command.bind(config, haxelib), config, haxelib);
+    }
+
+    static function getCommand(arg:String)
+    {
+        return switch(arg) 
+        {
+            case 'submit': Submit.get;
+            default: Help.get;
+        };
     }
 
     /**
      * Execute IO if not a dry run. Print info for each command
      */
-    static function exec(config:Config, haxelib:Dynamic)
+    static function exec(command:Void->Array<Command>, config:Config, haxelib:Dynamic)
     {
         Sys.println('saving the updated haxelib.json');
         if (!config.dryRun)
             sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
 
-        getCommands(config, haxelib).map(function (command) {
-            Sys.println(command.info);
-            if (!config.dryRun) {
-                if (Sys.command(command.bin, command.args) != 0)
-                    error(command.err);
+        command().map(function (command) {
+            switch(command) 
+            {
+                case bash(command):
+                    Sys.println(command.info);
+                    if (!config.dryRun) {
+                        if (Sys.command(command.bin, command.args) != 0)
+                            error(command.err);
+                    }
+                case func(fn): fn();
             }
         });
     }
@@ -73,51 +85,5 @@ class Main
     {
         Sys.println(err);
         Sys.exit(1);
-    }
-
-    /**
-     * Return all the bash commands to execute
-     */
-    static function getCommands(config:Config, haxelib:Dynamic)
-    {
-        var commands = new Array<Command>();
-
-        //commit in git
-        if (!config.noCommit)
-            commands = commands.concat(Git.commit(haxelib.version, config.comment));
-
-        //push to git origin remote
-        if (!config.noPush && !config.noCommit)
-            commands = commands.concat(Git.push(config.remote));
-
-        //submit to haxelib or install locally
-        if (!config.local)
-            commands = commands.concat(Haxelib.submit(config));
-        else
-            commands = commands.concat(Haxelib.local(config));
-
-        return commands;
-    }
-
-   /**
-    * display help
-    */ 
-    static function usage()
-    {
-        Sys.println('');
-        Sys.println('MAJHAXE');
-        Sys.println('Update semver version, commit and push to git and submit to haxelib');
-        Sys.println('-------------------------------------------------');
-        Sys.println('usage:');
-        Sys.println('majhaxe [ <newversion> | major | minor | patch | build]');
-        Sys.println('options:');
-        Sys.println('  --m <optional message> - used as commit message and haxelib.json release note');
-        Sys.println('  --no-commit - prevent commit the haxelib.json update to git');
-        Sys.println('  --no-push - prevent pushing the haxelib.json commit and tag to the git remote');
-        Sys.println('  --remote - an alternate remote to push to (defaults to origin)');
-        Sys.println('  --exclude - a space separate list of files to exclude from the zip submitted to haxelib');
-        Sys.println('  --local - install haxelib locally instead of submitting it');
-        Sys.println('  --dry-run - print the commands that would be run without actually running them');
-        Sys.println('');
     }
 }

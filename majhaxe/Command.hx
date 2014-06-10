@@ -1,9 +1,15 @@
 package;
 
+enum Command 
+{
+    bash(cmd:Bash);
+    func(fun:Void->Void);
+}
+
 /**
  * Represents a bash command
  */
-typedef Command =
+typedef Bash =
 {
     //an executable name
     var bin:String;

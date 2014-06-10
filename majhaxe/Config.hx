@@ -2,28 +2,18 @@ package;
 
 import arguable.ArgParser;
 import semver.SemVer;
+using Lambda;
 
 /**
  * Create conf from command line arguments 
  */ 
 class Config
 {
-    public static function get(SysArgs:Array<String>):Config
+    public static function get(sysArgs:Array<String>):Config
     {
-        //first argument should be the semver update to perform
-        var first = SysArgs.shift();
+        var args = ArgParser.parse(sysArgs);
 
-        var semver = switch(first) 
-        {
-            case 'minor', 'major', 'patch', 'build': first;
-            default: first;
-                if (!SemVer.valid(first))
-                    throw 'first argument must be a valid semver';
-
-                first;
-        }
-
-        var args = ArgParser.parse(Sys.args());
+        var semver = getSemver(sysArgs);
 
         var comment = null;
         if (args.has('m'))
@@ -39,6 +29,17 @@ class Config
 
         return new Config(comment, semver, args.has('no-commit'), 
                 args.has('no-push'), remote, exclude, args.has('local'), args.has('dry-run'));
+    }
+
+    static function getSemver(args:Array<String>):String
+    {
+        return args.find(function (arg) {
+            return switch(arg)
+            {
+                case 'minor', 'major', 'patch', 'build': true;
+                default: SemVer.valid(arg);
+            }
+        });
     }
 
     //an optional comment used for the commit and release note

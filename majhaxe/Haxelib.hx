@@ -1,6 +1,7 @@
 package;
 
 import semver.SemVer;
+import Command;
 
 /**
  * Communication and configuration for haxelib submission
@@ -68,7 +69,7 @@ class Haxelib
                 info:'submitting haxelib.zip to haxelib'
             },
             rmZip()
-        ];
+        ].map(function (item) return bash(item));
     }
 
     //INSTALL LOCALLY
@@ -84,14 +85,14 @@ class Haxelib
                 info:'installing haxelib.zip locally'
             },
             rmZip()
-        ];
+        ].map(function (item) return bash(item));
     }
 
     /**
      * create zip with all files in folder expect explicitely
      * excluded ones
      */
-    static function zip(exclude:String):Command
+    static function zip(exclude:String):Bash
     {
         var cmd = {
             bin: 'zip',
@@ -109,7 +110,7 @@ class Haxelib
     /**
      * delete zip
      */
-    static function rmZip():Command
+    static function rmZip():Bash
     {
         return {
             bin: 'rm',
