@@ -22,6 +22,23 @@ class TestProject extends BuddySuite implements Buddy {
             describe('#dependencies', function () {
                 it('should install the provided dependencies');
             });
+
+            describe('#readme', function () {
+                it('should create a readme');
+            });
+            
+            describe('#travis', function () {
+                it('should add a travis file');
+            });
+
+            describe('#source', function () {
+                it('should create a source folder');
+                it('should create a Main file');
+            });
+
+            describe('#hxml', function () {
+                it('should create an hxml file');
+            });
         });
     }
 }
