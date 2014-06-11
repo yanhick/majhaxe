@@ -63,7 +63,13 @@ class TestProject extends BuddySuite implements Buddy {
             });
 
             describe('#source', function () {
-                it('should create a source folder');
+                it('should create a source folder', function () {
+                    var command = FS.mkdir('test');
+                    (switch(command.cmd) {
+                        case bash('mkdir', ['test']): true;
+                        case _: false;
+                    }).should.be(true);
+                });
                 it('should create a Main file');
             });
 
