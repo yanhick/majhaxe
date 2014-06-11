@@ -5,6 +5,20 @@ using buddy.Should;
 
 class TestProject extends BuddySuite implements Buddy {
     public function new() {
+        var getBin = function (command:Command) {
+            return switch(command.cmd) {
+                case bash(bin, args): bin;
+                default: throw 'not a bash command';
+            }
+        };
+
+        var getArgs = function (command:Command) {
+            return switch(command.cmd) {
+                case bash(bin, args): args;
+                default: throw 'not a bash command';
+            }
+        };
+
         describe('project', function () {
 
             describe('#haxelib', function () {
@@ -12,7 +26,12 @@ class TestProject extends BuddySuite implements Buddy {
             });
             
             describe('#git', function () {
-                it('should init a git repo');
+                it('should init a git repo', function () {
+                    (switch(Git.init().cmd) {
+                        case bash('git', ['init']): true;
+                        case _: false;
+                    }).should.be(true);
+                });
             });
 
             describe('#licence', function () {
