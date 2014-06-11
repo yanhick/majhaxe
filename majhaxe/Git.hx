@@ -3,7 +3,7 @@ package;
 import Command;
 
 /**
- * Communicate with git 
+ * Create Git commands
  */ 
 class Git
 {
@@ -40,6 +40,12 @@ class Git
                     'could not create a new tag', 
                     'creating tag: ' + version)
         ];
+    }
+
+    public static function init():Command
+    {
+        return getGitCommand(['init'], 
+                'could not create a git repo', 'creating a git repo' );
     }
 
     static function getGitCommand(args, err, info):Command
