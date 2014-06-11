@@ -45,7 +45,13 @@ class TestProject extends BuddySuite implements Buddy {
             });
 
             describe('#dependencies', function () {
-                it('should install the provided dependencies');
+                it('should generate commands to install the provided dependencies', function () {
+                    var commands = Haxelib.install(['my-lib', 'your-lib']);
+                    (switch(commands[0].cmd) {
+                        case bash('haxelib', ['install' , 'my-lib']): true;
+                        case _: false;
+                    }).should.be(true);
+                });
             });
 
             describe('#readme', function () {

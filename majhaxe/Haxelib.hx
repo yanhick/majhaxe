@@ -71,6 +71,7 @@ class Haxelib
         ];
     }
 
+
     //INSTALL LOCALLY
 
     public static function local(config:Config):Array<Command>
@@ -114,5 +115,18 @@ class Haxelib
             err: 'could not delete haxelib.zip',
             info:'deleting haxelib.zip'
         }
+    }
+
+    //INSTALL AN HAXELIB
+
+    public static function install(libs:Array<String>):Array<Command>
+    {
+        return libs.map(function (lib) {
+            return {
+                cmd: bash('haxelib', ['install', lib]), 
+                err: 'could not install: ' + lib,
+                info: 'installing: ' + lib
+            }
+        });
     }
 }
