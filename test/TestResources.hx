@@ -9,7 +9,7 @@ class TestResources extends BuddySuite implements Buddy {
 
             describe('#licence', function () {
                 it('should generate an MIT licence', function () {
-                    var licence = Licence.createMIT(
+                    var licence = Resources.createMIT(
                         Date.now().getFullYear(),
                         'test holder');
                     licence.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);

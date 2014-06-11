@@ -6,7 +6,7 @@ import haxe.Template;
 /**
  * Create Licence files
  */ 
-class Licence
+class Resources
 {
     public static function createMIT(year:Int, holder:String):String
     {
