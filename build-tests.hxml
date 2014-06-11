@@ -6,3 +6,4 @@
 -lib arguable
 -lib buddy
 -resource res/mit.tpl@mit
+-resource res/main.tpl@main

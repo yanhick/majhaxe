@@ -4,7 +4,7 @@ import Command;
 import haxe.Template;
 
 /**
- * Create Licence files
+ * Create resource files from templates
  */ 
 class Resources
 {
@@ -13,6 +13,13 @@ class Resources
         return new Template(haxe.Resource.getString('mit')).execute({
             year: year,
             holder: holder
+        });
+    }
+
+    public static function createMain(pack:String):String
+    {
+        return new Template(haxe.Resource.getString('main')).execute({
+            pack: pack
         });
     }
 }

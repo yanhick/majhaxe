@@ -4,3 +4,4 @@
 -lib hx-semver
 -lib arguable
 -resource res/mit.tpl@mit
+-resource res/main.tpl@main

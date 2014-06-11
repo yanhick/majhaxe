@@ -22,7 +22,12 @@ class TestResources extends BuddySuite implements Buddy {
             });
 
             describe('#main', function () {
-                it('should generate a main Haxe file');
+                it('should generate a main Haxe file', function () {
+                    var main = Resources.createMain('test');
+                    main.indexOf('main').should.not.be(-1);
+                    main.indexOf('package').should.not.be(-1);
+                    main.indexOf('test').should.not.be(-1);
+                });
             });
 
             describe('#hxml', function () {
