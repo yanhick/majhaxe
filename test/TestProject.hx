@@ -35,7 +35,13 @@ class TestProject extends BuddySuite implements Buddy {
             });
 
             describe('#licence', function () {
-                it('should generate a licence for the project');
+                it('should generate a licence for the project', function () {
+                    var licence = Licence.createMIT(
+                        Date.now().getFullYear(),
+                        'test holder');
+                    licence.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
+                    licence.indexOf('test holder').should.not.be(-1);
+                });
             });
 
             describe('#dependencies', function () {
