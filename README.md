@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/yanhick/majhaxe?branch=master)](https://travis-ci.org/yanhick/majhaxe)
+[![Build Status](https://travis-ci.org/yanhick/majhaxe.svg?branch=master)](https://travis-ci.org/yanhick/majhaxe)
 majhaxe
 =========
 
