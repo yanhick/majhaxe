@@ -30,4 +30,12 @@ class Resources
             description: description
         });
     }
+
+    public static function createTravis(libs:Array<String>, build:String):String
+    {
+        return new Template(haxe.Resource.getString('travis')).execute({
+            libs: libs,
+            build: build
+        });
+    }
 }

@@ -18,7 +18,12 @@ class TestResources extends BuddySuite implements Buddy {
             });
             
             describe('#travis', function () {
-                it('should generate a travis file');
+                it('should generate a travis file', function () {
+                    var travis = Resources.createTravis(['my-lib'], 'test.hxml');
+                    trace(travis);
+                    travis.indexOf('test.hxml').should.not.be(-1);
+                    travis.indexOf('my-lib').should.not.be(-1);
+                });
             });
 
             describe('#main', function () {
