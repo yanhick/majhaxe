@@ -35,7 +35,11 @@ class TestResources extends BuddySuite implements Buddy {
             });
 
             describe('#readme', function () {
-                it('should generate a readme file');
+                it('should generate a readme file', function () {
+                    var readme = Resources.createReadme('test', 'test description');
+                    readme.indexOf('test').should.not.be(-1);
+                    readme.indexOf('test description').should.not.be(-1);
+                });
             });
         });
     }

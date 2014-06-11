@@ -5,3 +5,4 @@
 -lib arguable
 -resource res/mit.tpl@mit
 -resource res/main.tpl@main
+-resource res/readme.tpl@readme

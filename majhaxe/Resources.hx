@@ -22,4 +22,12 @@ class Resources
             pack: pack
         });
     }
+
+    public static function createReadme(name:String, description:String):String
+    {
+        return new Template(haxe.Resource.getString('readme')).execute({
+            name: name,
+            description: description
+        });
+    }
 }
