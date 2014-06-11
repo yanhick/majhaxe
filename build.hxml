@@ -3,3 +3,4 @@
 -cp majhaxe
 -lib hx-semver
 -lib arguable
+-resource res/mit.tpl@mit

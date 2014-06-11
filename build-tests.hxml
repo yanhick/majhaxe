@@ -5,3 +5,4 @@
 -lib hx-semver
 -lib arguable
 -lib buddy
+-resource res/mit.tpl@mit
