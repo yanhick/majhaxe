@@ -36,7 +36,15 @@ class TestResources extends BuddySuite implements Buddy {
             });
 
             describe('#hxml', function () {
-                it('should generate an .hxml file');
+                it('should generate an .hxml file', function () {
+                    var hxml = Resources.createHXML(['js', 'cpp'], ['my-lib'], 'test');
+                    trace(hxml);
+                    hxml.indexOf('js').should.not.be(-1);
+                    hxml.indexOf('cpp').should.not.be(-1);
+                    hxml.indexOf('my-lib').should.not.be(-1);
+                    hxml.indexOf('test').should.not.be(-1);
+                    hxml.indexOf('neko').should.be(-1);
+                });
             });
 
             describe('#readme', function () {
