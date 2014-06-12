@@ -16,7 +16,7 @@ class TestUserInput extends BuddySuite implements Buddy {
                 it('should store user input for project init', function () {
 
                     var getInput = function () {
-                        var inputs = ['test', 'mit', 'js php'];
+                        var inputs = ['test', 'mit', 'holder', 'js php'];
                         return function () return inputs.shift();
                     };
                     var output = function (str) {};
@@ -24,6 +24,7 @@ class TestUserInput extends BuddySuite implements Buddy {
                     var input = UserInput.init(output, getInput());
                     input.project.should.be('test');
                     input.licence.should.be('mit');
+                    input.holder.should.be('holder');
                     input.targets.should.be('js php');
                 });
             });
