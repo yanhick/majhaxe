@@ -20,15 +20,6 @@ class TestProject extends BuddySuite implements Buddy {
                 });
             });
 
-            describe('#licence', function () {
-                it('should generate a licence for the project', function () {
-                    var licence = Licence.createMIT(
-                        Date.now().getFullYear(),
-                        'test holder');
-                    licence.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
-                    licence.indexOf('test holder').should.not.be(-1);
-                });
-            });
 
             describe('#dependencies', function () {
                 it('should generate commands to install the provided dependencies', function () {
@@ -39,22 +30,7 @@ class TestProject extends BuddySuite implements Buddy {
                     }).should.be(true);
                 });
             });
-
-            describe('#readme', function () {
-                it('should create a readme');
-            });
             
-            describe('#travis', function () {
-                it('should add a travis file');
-            });
-
-            describe('#source', function () {
-                it('should create a Main file');
-            });
-
-            describe('#hxml', function () {
-                it('should create an hxml file');
-            });
         });
     }
 }
