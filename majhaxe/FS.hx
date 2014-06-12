@@ -15,4 +15,15 @@ class FS
             info: 'creating dir: ' + name
         }
     }
+
+    public static function write(file, content):Command
+    {
+        return {
+            cmd: func(function () {
+                sys.io.File.saveContent(file, content);
+            }),
+            err: 'could not write to:' + file,
+            info: 'writing to: ' + file
+        }
+    }
 }
