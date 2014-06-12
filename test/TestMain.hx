@@ -17,20 +17,6 @@ class TestMain extends BuddySuite implements Buddy {
             }
         };
 
-        describe('Git', function () {
-            it('should return commands to commit to git', function () {
-                var commands:Array<Command> = Git.commit('0.1.0', null);
-                commands.length.should.be(3);
-                getBin(commands[0]).should.be('git');
-            });
-
-            it('should return commands to push to git', function () {
-                var commands = Git.push('origin');
-                commands.length.should.be(2);
-                getBin(commands[0]).should.be('git');
-            });
-        });
-
         describe('Config', function () {
             it('should create a config', function () {
                 var config = Config.get(['minor']);
