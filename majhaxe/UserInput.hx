@@ -16,10 +16,14 @@ class UserInput
         output('targets ?');
         var targets = input();
 
+        output('dependencies ?');
+        var dependencies = input();
+
         return {
             project: project,
             licence: licence,
             holder: holder,
+            dependencies: dependencies.split(' '),
             targets: targets
         }
     }
