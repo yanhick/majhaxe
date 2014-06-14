@@ -1,14 +1,26 @@
 package;
 
+enum Licence {
+    MIT;
+}
+
+typedef InitInput = {
+    var project:String;
+    var licence:Licence;
+    var holder:String;
+    var dependencies:Array<String>;
+    var targets:Array<String>;
+}
+
 class UserInput
 {
-    public static function init(output:String->Void, input:Void->String)
+    public static function init(output:String->Void, input:Void->String):InitInput
     {
         output('project name ?');
         var project = input();
 
         output('licence ?');
-        var licence = input();
+        var licence = getLicence(input());
 
         output('licence holder ?');
         var holder = input();
@@ -24,7 +36,17 @@ class UserInput
             licence: licence,
             holder: holder,
             dependencies: dependencies.split(' '),
-            targets: targets
+            targets: targets.split(' ')
+        }
+    }
+
+    static function getLicence(input)
+    {
+        return switch(input) 
+        {
+            case 'MIT': MIT;
+            case _: MIT;
         }
     }
 }
+
