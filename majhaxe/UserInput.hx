@@ -6,6 +6,7 @@ enum Licence {
 
 typedef InitInput = {
     var project:String;
+    var description:String;
     var licence:Licence;
     var holder:String;
     var dependencies:Array<String>;
@@ -18,6 +19,9 @@ class UserInput
     {
         output('project name ?');
         var project = input();
+
+        output('description ?');
+        var description = input();
 
         output('licence ?');
         var licence = getLicence(input());
@@ -33,6 +37,7 @@ class UserInput
 
         return {
             project: project,
+            description: description,
             licence: licence,
             holder: holder,
             dependencies: dependencies.split(' '),
