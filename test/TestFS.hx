@@ -17,7 +17,14 @@ class TestFS extends BuddySuite implements Buddy {
             });
 
             describe('#cd', function () {
-                it('should create a command to change current directory');
+                it('should create a command to change current directory', function () {
+                    var command = FS.cd('test');
+
+                    (switch(command.cmd) {
+                        case bash('cd', ['test']): true;
+                        case _: false;
+                    }).should.be(true);
+                });
             });
 
             describe('#write', function () {
