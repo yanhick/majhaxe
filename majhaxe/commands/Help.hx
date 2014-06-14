@@ -7,10 +7,10 @@ import Command;
  */
 class Help
 {
-    public static function get(config:Config):Array<Command>
+    public static function get(output:String->Void):Array<Command>
     {
         return [{
-            cmd: func(Sys.println.bind(haxe.Resource.getString('usage'))),
+            cmd: func(output.bind(haxe.Resource.getString('usage'))),
             err: 'could not display help',
             info: ''
         }];
