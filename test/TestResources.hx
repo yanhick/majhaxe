@@ -3,13 +3,17 @@ package;
 import buddy.*;
 using buddy.Should;
 
+import Resources;
+
 class TestResources extends BuddySuite implements Buddy {
     public function new() {
         describe('resource', function () {
 
+            var resources = ResourcesImpl.get();
+
             describe('#licence', function () {
                 it('should generate an MIT licence', function () {
-                    var licence = Resources.createMIT(
+                    var licence = resources.createMIT(
                         Date.now().getFullYear(),
                         'test holder');
                     licence.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
@@ -19,7 +23,7 @@ class TestResources extends BuddySuite implements Buddy {
             
             describe('#travis', function () {
                 it('should generate a travis file', function () {
-                    var travis = Resources.createTravis(['my-lib'], 'test.hxml');
+                    var travis = resources.createTravis(['my-lib'], 'test.hxml');
                     trace(travis);
                     travis.indexOf('test.hxml').should.not.be(-1);
                     travis.indexOf('my-lib').should.not.be(-1);
@@ -28,7 +32,7 @@ class TestResources extends BuddySuite implements Buddy {
 
             describe('#main', function () {
                 it('should generate a main Haxe file', function () {
-                    var main = Resources.createMain('test');
+                    var main = resources.createMain('test');
                     main.indexOf('main').should.not.be(-1);
                     main.indexOf('package').should.not.be(-1);
                     main.indexOf('test').should.not.be(-1);
@@ -37,7 +41,7 @@ class TestResources extends BuddySuite implements Buddy {
 
             describe('#hxml', function () {
                 it('should generate an .hxml file', function () {
-                    var hxml = Resources.createHXML(['js', 'cpp'], ['my-lib'], 'test');
+                    var hxml = resources.createHXML(['js', 'cpp'], ['my-lib'], 'test');
                     trace(hxml);
                     hxml.indexOf('js').should.not.be(-1);
                     hxml.indexOf('cpp').should.not.be(-1);
@@ -49,7 +53,7 @@ class TestResources extends BuddySuite implements Buddy {
 
             describe('#readme', function () {
                 it('should generate a readme file', function () {
-                    var readme = Resources.createReadme('test', 'test description');
+                    var readme = resources.createReadme('test', 'test description');
                     readme.indexOf('test').should.not.be(-1);
                     readme.indexOf('test description').should.not.be(-1);
                 });

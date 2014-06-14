@@ -32,8 +32,6 @@ class Submit
             info: 'updating haxelib.json',
             err: 'could not save updated haxelib.json',
             cmd: func(function () {
-                if (!config.dryRun)
-                    sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
         })});
 
         commands.push({
