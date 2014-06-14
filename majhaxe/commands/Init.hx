@@ -9,8 +9,9 @@ import UserInput;
  */
 class Init
 {
-    public static function get(config:Config, io:IO, resources:Resources, input:InitInput):Array<Command>
+    public static function get(config:Config, io:IO, resources:Resources, getInput:Void->InitInput):Array<Command>
     {
+        var input = getInput();
         var commands = [Git.init()];
 
         commands.push({

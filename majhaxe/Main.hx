@@ -3,6 +3,9 @@ package;
 import haxe.Json;
 import commands.*;
 
+import Resources;
+import UserInput;
+
 /**
  * Haxelib submission tool 
  */ 
@@ -28,7 +31,10 @@ class Main
         };
 
         var config = Config.get(args.length == 0 ? args : args.slice(1));
-        var command = getCommand(args.length == 0 ? '' : args[0], io, config);
+        var getInitInput = function () return UserInput.init(io.output, io.input);
+        var resources = ResourcesImpl.get();
+
+        var command = getCommand(args.length == 0 ? '' : args[0], io, config, resources, getInitInput);
 
         try {
             exec(command, config);
@@ -38,11 +44,12 @@ class Main
         }
     }
 
-    static function getCommand(arg:String, io:IO, config:Config)
+    static function getCommand(arg:String, io:IO, config:Config, resources:Resources, getInitInput:Void->InitInput)
     {
         return switch(arg) 
         {
             case 'submit': Submit.get.bind(config, io);
+            case 'init': Init.get.bind(config, io, resources, getInitInput);
             default: Help.get.bind(io.output);
         };
     }
