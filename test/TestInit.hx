@@ -15,10 +15,10 @@ class TestInit extends BuddySuite implements Buddy {
                 input: function () return '',
                 output: function (str){},
                 read: function (content) return '',
-                write: function (path, content){}
+                write: function (path, content){},
+                exists: function (path) return true
             };
             it('should create a git repo', function () {
-
                 var commands = Init.get(Config.get([]), io);
 
                 (switch(commands[0].cmd) {

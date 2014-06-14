@@ -23,7 +23,8 @@ class Main
             output: Sys.println,
             input: function () return Sys.stdin().readLine(),
             read: sys.io.File.getContent,
-            write: sys.io.File.saveContent
+            write: sys.io.File.saveContent,
+            exists: sys.FileSystem.exists
         };
 
         var config = Config.get(args.length == 0 ? args : args.slice(1));
