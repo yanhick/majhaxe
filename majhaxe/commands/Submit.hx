@@ -38,8 +38,7 @@ class Submit
             info: 'saving the updated haxelib.json',
             err: 'could not save updated haxelib.json',
             cmd: func(function () {
-                if (!config.dryRun)
-                    io.write(Constants.HAXELIB_JSON, Json.stringify(haxelib));
+                io.write(Constants.HAXELIB_JSON, Json.stringify(haxelib));
         })});
 
         //commit in git
