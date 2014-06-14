@@ -4,45 +4,35 @@ import Command;
 import haxe.Template;
 using Lambda;
 
+typedef Resources = {
+    var createMIT:Int->String->String;
+    var createMain:String->String;
+    var createReadme:String->String->String;
+    var createTravis:Array<String>->String->String;
+    var createHXML:Array<String>->Array<String>->String->String;
+}
+
 /**
  * Create resource files from templates
  */ 
-class Resources
+class ResourcesImpl
 {
-    public static function createMIT(year:Int, holder:String):String
+    public static function get():Resources
     {
-        return new Template(haxe.Resource.getString('mit')).execute({
-            year: year,
-            holder: holder
-        });
+        var render = function(res) return new haxe.Template(haxe.Resource.getString(res));
+
+        return {
+            createMIT: function (year, holder) return render('mit').execute({year: year, holder:holder}),
+            createMain: function (pack) return render('main').execute({pack: pack}),
+            createReadme: function (name, description) return render('readme').execute({name: name, description: description}),
+            createTravis: function (libs, build) return render('travis').execute({libs: libs, build: build}),
+            createHXML: function (targets, libs, path) return render('hxml').execute({targets: filterTargets(targets), libs: libs, path: path})
+        };
     }
 
-    public static function createMain(pack:String):String
+    static function filterTargets(requestedTargets:Array<String>)
     {
-        return new Template(haxe.Resource.getString('main')).execute({
-            pack: pack
-        });
-    }
-
-    public static function createReadme(name:String, description:String):String
-    {
-        return new Template(haxe.Resource.getString('readme')).execute({
-            name: name,
-            description: description
-        });
-    }
-
-    public static function createTravis(libs:Array<String>, build:String):String
-    {
-        return new Template(haxe.Resource.getString('travis')).execute({
-            libs: libs,
-            build: build
-        });
-    }
-
-    public static function createHXML(neededTargets:Array<String>, libs:Array<String>, path:String):String
-    {
-        var targets = [{
+        return [{
             name: 'cpp',
             options: [],
             output: '-cpp bin'
@@ -54,12 +44,6 @@ class Resources
             name: 'neko',
             options: [],
             output: '-neko bin/neko.n'
-        }].filter(function (target) return neededTargets.has(target.name));
-
-        return new Template(haxe.Resource.getString('hxml')).execute({
-            targets: targets,
-            libs: libs,
-            path: path
-        });
+        }].filter(function (target) return requestedTargets.has(target.name));
     }
 }
