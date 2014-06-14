@@ -8,10 +8,10 @@ import haxe.Json;
  */
 class Submit
 {
-    public static function get(config:Config):Array<Command>
+    public static function get(config:Config, io:IO):Array<Command>
     {
         //must have a haxelib conf file
-        if (!sys.FileSystem.exists('haxelib.json')) 
+        if (!io.exists('haxelib.json')) 
             return throw 'haxelib.json not found';
 
         if (config.semver == null)
@@ -19,7 +19,7 @@ class Submit
 
         var haxelib = null;
         try {
-            haxelib = Json.parse(sys.io.File.getContent(Constants.HAXELIB_JSON));
+            haxelib = Json.parse(io.read(Constants.HAXELIB_JSON));
         }
         catch(e:Dynamic) {
             return throw 'could not parse haxelib.json';
@@ -39,7 +39,7 @@ class Submit
             err: 'could not save updated haxelib.json',
             cmd: func(function () {
                 if (!config.dryRun)
-                    sys.io.File.saveContent(Constants.HAXELIB_JSON, Json.stringify(haxelib));
+                    io.write(Constants.HAXELIB_JSON, Json.stringify(haxelib));
         })});
 
         //commit in git

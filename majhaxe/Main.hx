@@ -42,7 +42,7 @@ class Main
     {
         return switch(arg) 
         {
-            case 'submit': Submit.get.bind(config);
+            case 'submit': Submit.get.bind(config, io);
             default: Help.get.bind(io.output);
         };
     }
