@@ -59,8 +59,9 @@ class TestInit extends BuddySuite implements Buddy {
                     dependencies: ['mylib'],
                     targets: ['js']
                 };
+                var getInput = function () return input;
 
-                var commands = Init.get(Config.get([]), io, resources, input);
+                var commands = Init.get(Config.get([]), io, resources, getInput);
                 commands.foreach(function (command) {
                     return switch(command.cmd) {
                         case func(fn):
