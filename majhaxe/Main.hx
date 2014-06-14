@@ -19,25 +19,30 @@ class Main
             Sys.setCwd(args.pop());
         }
 
-        var command = 
-        if (args.length == 0) Help.get
-        else getCommand(args.shift());
+        var io:IO = {
+            output: Sys.println,
+            input: function () return Sys.stdin().readLine(),
+            read: sys.io.File.getContent,
+            write: sys.io.File.saveContent
+        };
 
-        var config = Config.get(args);
+        var config = Config.get(args.length == 0 ? args : args.slice(1));
+        var command = getCommand(args.length == 0 ? '' : args[0], io, config);
+
         try {
-            exec(command.bind(Config.get(args)), config);
+            exec(command, config);
         }
         catch (e:Dynamic) {
             error(e);
         }
     }
 
-    static function getCommand(arg:String)
+    static function getCommand(arg:String, io:IO, config:Config)
     {
         return switch(arg) 
         {
-            case 'submit': Submit.get;
-            default: Help.get;
+            case 'submit': Submit.get.bind(config);
+            default: Help.get.bind(io.output);
         };
     }
 

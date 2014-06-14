@@ -10,3 +10,4 @@
 -resource res/readme.tpl@readme
 -resource res/travis.tpl@travis
 -resource res/hxml.tpl@hxml
+-resource res/usage.tpl@usage
