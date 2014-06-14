@@ -3,6 +3,7 @@ package;
 import Command;
 import haxe.Template;
 using Lambda;
+import UserInput;
 
 typedef Resources = {
     var createMIT:Int->String->String;
@@ -10,6 +11,7 @@ typedef Resources = {
     var createReadme:String->String->String;
     var createTravis:Array<String>->String->String;
     var createHXML:Array<String>->Array<String>->String->String;
+    var createHaxelib:InitInput->String;
 }
 
 /**
@@ -26,7 +28,8 @@ class ResourcesImpl
             createMain: function (pack) return render('main').execute({pack: pack}),
             createReadme: function (name, description) return render('readme').execute({name: name, description: description}),
             createTravis: function (libs, build) return render('travis').execute({libs: libs, build: build}),
-            createHXML: function (targets, libs, path) return render('hxml').execute({targets: filterTargets(targets), libs: libs, path: path})
+            createHXML: function (targets, libs, path) return render('hxml').execute({targets: filterTargets(targets), libs: libs, path: path}),
+            createHaxelib: function (input) return render('haxelib').execute(input)
         };
     }
 
