@@ -34,6 +34,26 @@ haxelib run majhaxe submit [ <newversion> | major | minor | patch | build]
 --dry-run //print the commands that would be run without actually running them
 ```
 
+####Init
+
+Init an Haxe project.
+Specifically:
+* init a git repo
+* create an .hxml file
+* create an haxelib.json
+* create a travis.yaml file
+* create a readme.md
+* create a Haxe Main class
+
+```
+haxelib run majhaxe init
+```
+
+```
+--no-git //prevent the creation of a git repo
+--dry-run //print the commands that would be run without actually running them
+```
+
 ###Build
 
 ```

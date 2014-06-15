@@ -14,3 +14,10 @@ options:
   --exclude - a space separate list of files to exclude from the zip submitted to haxelib
   --local - install haxelib locally instead of submitting it
   --dry-run - print the commands that would be run without actually running them
+
+init
+Init an Haxe project
+
+options:
+    --no-git - prevent the creation of a git repo
+    --dry-run - print the commands that would be run without actually running them

@@ -11,6 +11,9 @@ typedef Config = {
     //which semver part to update or a new semver version
     var semver:String;
 
+    //flag to prevent creating a git repo
+    var noGit:Bool;
+
     //flag to prevent git commit
     var noCommit:Bool;
 
@@ -58,6 +61,7 @@ class ConfigImpl
             semver: semver,
             noCommit: args.has('no-commit'),
             noPush: args.has('no-push'),
+            noGit: args.has('no-git'),
             remote: remote,
             exclude: exclude,
             local: args.has('local'),
