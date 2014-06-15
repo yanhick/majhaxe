@@ -1,13 +1,13 @@
 package;
 
-enum Licence {
+enum License {
     MIT;
 }
 
 typedef InitInput = {
     var project:String;
     var description:String;
-    var licence:Licence;
+    var license:License;
     var holder:String;
     var dependencies:Array<String>;
     var targets:Array<String>;
@@ -23,10 +23,10 @@ class UserInput
         output('description ?');
         var description = input();
 
-        output('licence ?');
-        var licence = getLicence(input());
+        output('license ?');
+        var license = getLicense(input());
 
-        output('licence holder ?');
+        output('license holder ?');
         var holder = input();
 
         output('targets ?');
@@ -38,14 +38,14 @@ class UserInput
         return {
             project: project,
             description: description,
-            licence: licence,
+            license: license,
             holder: holder,
             dependencies: dependencies.split(' '),
             targets: targets.split(' ')
         }
     }
 
-    static function getLicence(input)
+    static function getLicense(input)
     {
         return switch(input) 
         {

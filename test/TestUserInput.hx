@@ -24,7 +24,7 @@ class TestUserInput extends BuddySuite implements Buddy {
                     var input = UserInput.init(output, getInput());
                     input.project.should.be('test');
                     input.description.should.be('description');
-                    input.licence.should.be(MIT);
+                    input.license.should.be(MIT);
                     input.holder.should.be('holder');
                     input.dependencies[0].should.be('lib1');
                     input.dependencies[1].should.be('lib2');

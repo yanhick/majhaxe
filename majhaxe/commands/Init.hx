@@ -15,10 +15,10 @@ class Init
         var commands = [Git.init()];
 
         commands.push({
-            info: 'creating a '+ input.licence + ' licence file',
-            err: 'could not create a' + input.licence + ' licence file',
+            info: 'creating a '+ input.license + ' license file',
+            err: 'could not create a' + input.license + ' license file',
             cmd: func(function () {
-                io.write('licence.md', resources.createMIT(Date.now().getFullYear(), input.holder));
+                io.write('license.md', resources.createMIT(Date.now().getFullYear(), input.holder));
             })
         });
 

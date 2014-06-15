@@ -4,6 +4,8 @@ import buddy.*;
 using buddy.Should;
 
 import Resources;
+import haxe.Json;
+import UserInput;
 
 class TestResources extends BuddySuite implements Buddy {
     public function new() {
@@ -11,20 +13,19 @@ class TestResources extends BuddySuite implements Buddy {
 
             var resources = ResourcesImpl.get();
 
-            describe('#licence', function () {
-                it('should generate an MIT licence', function () {
-                    var licence = resources.createMIT(
+            describe('#license', function () {
+                it('should generate an MIT license', function () {
+                    var license = resources.createMIT(
                         Date.now().getFullYear(),
                         'test holder');
-                    licence.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
-                    licence.indexOf('test holder').should.not.be(-1);
+                    license.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
+                    license.indexOf('test holder').should.not.be(-1);
                 });
             });
             
             describe('#travis', function () {
                 it('should generate a travis file', function () {
                     var travis = resources.createTravis(['my-lib'], 'test.hxml');
-                    trace(travis);
                     travis.indexOf('test.hxml').should.not.be(-1);
                     travis.indexOf('my-lib').should.not.be(-1);
                 });
@@ -42,7 +43,6 @@ class TestResources extends BuddySuite implements Buddy {
             describe('#hxml', function () {
                 it('should generate an .hxml file', function () {
                     var hxml = resources.createHXML(['js', 'cpp'], ['my-lib'], 'test');
-                    trace(hxml);
                     hxml.indexOf('js').should.not.be(-1);
                     hxml.indexOf('cpp').should.not.be(-1);
                     hxml.indexOf('my-lib').should.not.be(-1);
@@ -56,6 +56,31 @@ class TestResources extends BuddySuite implements Buddy {
                     var readme = resources.createReadme('test', 'test description');
                     readme.indexOf('test').should.not.be(-1);
                     readme.indexOf('test description').should.not.be(-1);
+                });
+            });
+
+            describe('#haxelib', function () {
+                it('should generate a haxelib file', function () {
+                    var input:InitInput = {
+                        project: 'test-project',
+                        description: 'my test project',
+                        license: MIT,
+                        holder: 'test holder',
+                        dependencies: ['mylib', 'myotherlib'],
+                        targets: ['js']
+                    };
+                    var haxelib = resources.createHaxelib(input);
+                    var haxelibJSON = Json.parse(haxelib);
+                    var name:String = haxelibJSON.name;
+                    var license:String = haxelibJSON.license;
+                    var contributor:Array<String> = haxelibJSON.contributors;
+                    var description:String = haxelibJSON.description;
+                    var dependencies:Dynamic = haxelibJSON.dependencies;
+
+                    name.should.be('test-project');
+                    license.should.be('MIT');
+                    contributor[0].should.be('test holder');
+                    description.should.be('my test project');
                 });
             });
         });
