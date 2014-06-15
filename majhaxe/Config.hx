@@ -26,9 +26,6 @@ typedef Config = {
     //list of files to exclude from zip sent to haxelib
     var exclude:String;
 
-    //flag to install haxelib locally instead of submitting it
-    var local:Bool;
-
     //flag to test the command that will be run without actually running them
     var dryRun:Bool;
 }
@@ -64,7 +61,6 @@ class ConfigImpl
             noGit: args.has('no-git'),
             remote: remote,
             exclude: exclude,
-            local: args.has('local'),
             dryRun: args.has('dry-run')
         }
     }
