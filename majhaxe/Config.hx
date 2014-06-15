@@ -4,10 +4,36 @@ import arguable.ArgParser;
 import semver.SemVer;
 using Lambda;
 
+typedef Config = {
+    //a comment used for the commit and release note
+    var comment:String;
+
+    //which semver part to update or a new semver version
+    var semver:String;
+
+    //flag to prevent git commit
+    var noCommit:Bool;
+
+    //flag to prevent git push 
+    var noPush:Bool;
+
+    //git remote to push to
+    var remote:String;
+
+    //list of files to exclude from zip sent to haxelib
+    var exclude:String;
+
+    //flag to install haxelib locally instead of submitting it
+    var local:Bool;
+
+    //flag to test the command that will be run without actually running them
+    var dryRun:Bool;
+}
+
 /**
  * Create conf from command line arguments 
  */ 
-class Config
+class ConfigImpl
 {
     public static function get(sysArgs:Array<String>):Config
     {
@@ -27,8 +53,16 @@ class Config
         if (args.has('exclude'))
             exclude = args.get('exclude').value;
 
-        return new Config(comment, semver, args.has('no-commit'), 
-                args.has('no-push'), remote, exclude, args.has('local'), args.has('dry-run'));
+        return {
+            comment: comment,
+            semver: semver,
+            noCommit: args.has('no-commit'),
+            noPush: args.has('no-push'),
+            remote: remote,
+            exclude: exclude,
+            local: args.has('local'),
+            dryRun: args.has('dry-run')
+        }
     }
 
     static function getSemver(args:Array<String>):String
@@ -40,43 +74,5 @@ class Config
                 default: SemVer.valid(arg);
             }
         });
-    }
-
-    //an optional comment used for the commit and release note
-    public var comment(default, null):String;
-
-    //which semver part to update or a new semver version
-    public var semver(default, null): String;
-
-    //flag to prevent git commit
-    public var noCommit(default, null): Bool;
-
-    //flag to prevent git push 
-    public var noPush(default, null): Bool;
-
-    //git remote to push to
-    public var remote(default, null): String;
-
-    //list of files to exclude from zip sent to haxelib
-    public var exclude(default, null): String;
-
-    //flag to install haxelib locally instead of submitting it
-    public var local(default, null): Bool;
-
-    //flag to test the command that will be run without actually running them
-    public var dryRun(default, null):Bool;
-
-    private function new(comment:String, semver:String, 
-            noCommit:Bool, noPush:Bool,
-            remote:String, exclude:String, local:Bool, dryRun:Bool) 
-    {
-        this.comment = comment;
-        this.semver = semver;
-        this.noCommit= noCommit;
-        this.noPush = noPush;
-        this.remote = remote;
-        this.exclude = exclude;
-        this.local = local;
-        this.dryRun = dryRun;
     }
 }
