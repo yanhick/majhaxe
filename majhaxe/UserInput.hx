@@ -9,6 +9,7 @@ typedef InitInput = {
     var description:String;
     var license:License;
     var holder:String;
+    var source:String;
     var dependencies:Array<String>;
     var targets:Array<String>;
 }
@@ -22,6 +23,11 @@ class UserInput
 
         output('description ?');
         var description = input();
+
+        output('source dir ?');
+        var source = input();
+
+        if (source == '') source = project;
 
         output('license ?');
         var license = getLicense(input());
@@ -39,6 +45,7 @@ class UserInput
             project: project,
             description: description,
             license: license,
+            source: source,
             holder: holder,
             dependencies: dependencies.split(' '),
             targets: targets.split(' ')

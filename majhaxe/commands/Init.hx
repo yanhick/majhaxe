@@ -30,11 +30,13 @@ class Init
             })
         });
 
+        commands.push(FS.mkdir(input.source));
+
         commands.push({
             info: 'creating a main haxe file',
             err: 'could not create a main haxe file',
             cmd: func(function () {
-                io.write(input.project + 'Main.hx', resources.createMain(input.project));
+                io.write(input.source + '/Main.hx', resources.createMain(input.project));
             })
         });
 

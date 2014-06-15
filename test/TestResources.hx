@@ -65,6 +65,7 @@ class TestResources extends BuddySuite implements Buddy {
                         project: 'test-project',
                         description: 'my test project',
                         license: MIT,
+                        source: 'source',
                         holder: 'test holder',
                         dependencies: ['mylib', 'myotherlib'],
                         targets: ['js']
