@@ -76,7 +76,8 @@ class TestInit extends BuddySuite implements Buddy {
                         case func(fn):
                             fn();
                             true;
-                        case bash(_, _): true;
+                        case bash('git', ['init']): true;
+                        case bash('mkdir', _): true;
                         case _: false;
                     }
                 }).should.be(true);

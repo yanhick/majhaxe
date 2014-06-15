@@ -30,6 +30,8 @@ class Init
             })
         });
 
+        commands.push(FS.mkdir(input.source));
+
         commands.push({
             info: 'creating a main haxe file',
             err: 'could not create a main haxe file',
