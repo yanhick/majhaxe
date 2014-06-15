@@ -34,7 +34,7 @@ class Init
             info: 'creating a main haxe file',
             err: 'could not create a main haxe file',
             cmd: func(function () {
-                io.write(input.project + 'Main.hx', resources.createMain(input.project));
+                io.write(input.source + '/Main.hx', resources.createMain(input.project));
             })
         });
 

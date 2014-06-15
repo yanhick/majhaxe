@@ -15,11 +15,25 @@ class TestInit extends BuddySuite implements Buddy {
     {
         describe('Init', function () {
             it('should create a git repo', function () {
+                var input:InitInput = {
+                    project: 'test-project',
+                    description: 'my test project',
+                    license: MIT,
+                    source: 'source',
+                    holder: 'test holder',
+                    dependencies: ['mylib'],
+                    targets: ['js']
+                };
+
                 var io = {
                     input: function () return '',
                     output: function (str) {},
                     read: function (content) return '',
-                    write: function (path, content){},
+                    write: function (path, content){ 
+                        ['license.md', '.travis.yml', 
+                        input.source + '/Main.hx', 
+                        'readme.md', 'build.hxml'].has(path).should.be(true);
+                    },
                     exists: function (path) return true
                 };
 
@@ -54,14 +68,6 @@ class TestInit extends BuddySuite implements Buddy {
                     }
                 };
 
-                var input:InitInput = {
-                    project: 'test-project',
-                    description: 'my test project',
-                    license: MIT,
-                    holder: 'test holder',
-                    dependencies: ['mylib'],
-                    targets: ['js']
-                };
                 var getInput = function () return input;
 
                 var commands = Init.get(Config.get([]), io, resources, getInput);
