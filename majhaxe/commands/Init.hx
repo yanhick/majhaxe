@@ -12,7 +12,10 @@ class Init
     public static function get(config:Config, io:IO, resources:Resources, getInput:Void->InitInput):Array<Command>
     {
         var input = getInput();
-        var commands = [Git.init()];
+        var commands = [];
+
+        if (!config.noGit)
+            commands.push(Git.init());
 
         commands.push({
             info: 'creating a '+ input.license + ' license file',
