@@ -49,11 +49,8 @@ class Submit
         if (!config.noPush && !config.noCommit)
             commands = commands.concat(Git.push(config.remote));
 
-        //submit to haxelib or install locally
-        if (!config.local)
-            commands = commands.concat(Haxelib.submit(config));
-        else
-            commands = commands.concat(Haxelib.local(config));
+        //submit to haxelib
+        commands = commands.concat(Haxelib.submit(config));
 
         return commands;
     }

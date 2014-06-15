@@ -68,7 +68,6 @@ class TestInit extends BuddySuite implements Buddy {
                 comment: 'comment',
                 remote: null,
                 exclude: null,
-                local: false,
                 dryRun: false
             }
         }
