@@ -4,6 +4,8 @@ import buddy.*;
 using buddy.Should;
 
 import Resources;
+import haxe.Json;
+import UserInput;
 
 class TestResources extends BuddySuite implements Buddy {
     public function new() {
@@ -11,13 +13,13 @@ class TestResources extends BuddySuite implements Buddy {
 
             var resources = ResourcesImpl.get();
 
-            describe('#licence', function () {
-                it('should generate an MIT licence', function () {
-                    var licence = resources.createMIT(
+            describe('#license', function () {
+                it('should generate an MIT license', function () {
+                    var license = resources.createMIT(
                         Date.now().getFullYear(),
                         'test holder');
-                    licence.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
-                    licence.indexOf('test holder').should.not.be(-1);
+                    license.indexOf(Std.string(Date.now().getFullYear())).should.not.be(-1);
+                    license.indexOf('test holder').should.not.be(-1);
                 });
             });
             
@@ -56,6 +58,26 @@ class TestResources extends BuddySuite implements Buddy {
                     var readme = resources.createReadme('test', 'test description');
                     readme.indexOf('test').should.not.be(-1);
                     readme.indexOf('test description').should.not.be(-1);
+                });
+            });
+
+            describe('#haxelib', function () {
+                it('should generate a haxelib file', function () {
+                    var input:InitInput = {
+                        project: 'test-project',
+                        description: 'my test project',
+                        license: MIT,
+                        holder: 'test holder',
+                        dependencies: ['mylib'],
+                        targets: ['js']
+                    };
+                    var haxelib = resources.createHaxelib(input);
+                    var haxelibJSON = Json.parse(haxelib);
+                    var name:String = haxelibJSON.name;
+                    var license:String = haxelibJSON.license;
+
+                    name.should.be('test-project');
+                    license.should.be('MIT');
                 });
             });
         });

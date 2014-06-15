@@ -48,13 +48,16 @@ class TestInit extends BuddySuite implements Buddy {
                         libs[0].should.be('mylib');
                         path.should.be('test-project');
                         return 'hxml';
+                    },
+                    createHaxelib: function (input) {
+                        return 'haxelib';
                     }
                 };
 
                 var input:InitInput = {
                     project: 'test-project',
                     description: 'my test project',
-                    licence: MIT,
+                    license: MIT,
                     holder: 'test holder',
                     dependencies: ['mylib'],
                     targets: ['js']
