@@ -6,6 +6,7 @@ using buddy.Should;
 import Command;
 import commands.Init;
 import UserInput;
+import Config;
 
 using Lambda;
 
@@ -70,7 +71,7 @@ class TestInit extends BuddySuite implements Buddy {
 
                 var getInput = function () return input;
 
-                var commands = Init.get(Config.get([]), io, resources, getInput);
+                var commands = Init.get(ConfigImpl.get([]), io, resources, getInput);
                 commands.foreach(function (command) {
                     return switch(command.cmd) {
                         case func(fn):

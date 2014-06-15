@@ -4,6 +4,7 @@ import buddy.*;
 using buddy.Should;
 
 import Command;
+import Config;
 
 
 class TestConfig extends BuddySuite implements Buddy {
@@ -12,7 +13,7 @@ class TestConfig extends BuddySuite implements Buddy {
     {
         describe('Config', function () {
             it('should create a config', function () {
-                var config = Config.get(['minor']);
+                var config = ConfigImpl.get(['minor']);
                 config.semver.should.be('minor');
             });
         });

@@ -6,6 +6,7 @@ import commands.*;
 import Resources;
 import UserInput;
 import IO;
+import Config;
 
 /**
  * Haxelib submission tool 
@@ -23,7 +24,7 @@ class Main
             Sys.setCwd(args.pop());
         }
 
-        var config = Config.get(args.length == 0 ? args : args.slice(1));
+        var config = ConfigImpl.get(args.length == 0 ? args : args.slice(1));
         var io = IOImpl.get(config.dryRun);
         var getInitInput = function () return UserInput.init(io.output, io.input);
         var resources = ResourcesImpl.get();

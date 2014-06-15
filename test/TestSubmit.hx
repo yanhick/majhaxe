@@ -4,6 +4,7 @@ import buddy.*;
 using buddy.Should;
 
 import commands.Submit;
+import Config;
 using Lambda;
 
 class TestSubmit extends BuddySuite implements Buddy {
@@ -32,7 +33,7 @@ class TestSubmit extends BuddySuite implements Buddy {
                         }
                     }
 
-                    var commands = Submit.get(Config.get(['patch']), io);
+                    var commands = Submit.get(ConfigImpl.get(['patch']), io);
                     commands.foreach(function (command) {
                         return switch(command.cmd) {
                             case func(fn):
