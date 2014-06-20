@@ -12,7 +12,19 @@ CLI tool to kick some Haxe
 haxelib install majhaxe
 ```
 
+You can then run it with:
 
+```
+haxelib run majhaxe
+```
+
+That’s pretty long ! We’d better alias it:
+
+```
+echo “alias majhaxe=’haxelib run majhaxe’” >> ~/.bashrc && source ~/.bashrc
+```
+
+The rest of this file assums you aliased majhaxe.
 
 ###Usage
 
@@ -21,7 +33,7 @@ haxelib install majhaxe
 Update semver version, commit and push to git and submit to haxelib
 
 ```
-haxelib run majhaxe submit [ <newversion> | major | minor | patch | build]
+majhaxe submit [ <newversion> | major | minor | patch | build]
 ```
 
 ```
@@ -45,7 +57,7 @@ Specifically:
 * create a Haxe Main class
 
 ```
-haxelib run majhaxe init
+majhaxe init
 ```
 
 ```
@@ -58,7 +70,7 @@ haxelib run majhaxe init
 Install the haxelib locally
 
 ```
-haxelib run majhaxe local
+majhaxe local
 ```
 
 ```
