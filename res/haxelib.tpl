@@ -4,7 +4,7 @@
     "license": "::license::",
     "tags": ["haxelib", "core"],
     "description": "::description::",
-    "version": "0.0.1",
+    "version": "::version::",
     "releasenote": "initial release",
     "contributors": ["::holder::"]
 }

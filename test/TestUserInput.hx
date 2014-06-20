@@ -16,13 +16,14 @@ class TestUserInput extends BuddySuite implements Buddy {
                 it('should store user input for project init', function () {
 
                     var getInput = function () {
-                        var inputs = ['test', 'description', 'source', 'MIT', 'holder', 'js php', 'lib1 lib2'];
+                        var inputs = ['test', '0.0.0', 'description', 'source', 'MIT', 'holder', 'js php', 'lib1 lib2'];
                         return function () return inputs.shift();
                     };
                     var output = function (str) {};
 
                     var input = UserInput.init(output, getInput());
                     input.project.should.be('test');
+                    input.version.should.be('0.0.0');
                     input.description.should.be('description');
                     input.source.should.be('source');
                     input.license.should.be(MIT);

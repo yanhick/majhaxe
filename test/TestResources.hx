@@ -63,6 +63,7 @@ class TestResources extends BuddySuite implements Buddy {
                 it('should generate a haxelib file', function () {
                     var input:InitInput = {
                         project: 'test-project',
+                        version: '0.0.0',
                         description: 'my test project',
                         license: MIT,
                         source: 'source',
@@ -73,12 +74,14 @@ class TestResources extends BuddySuite implements Buddy {
                     var haxelib = resources.createHaxelib(input);
                     var haxelibJSON = Json.parse(haxelib);
                     var name:String = haxelibJSON.name;
+                    var version:String = haxelibJSON.version;
                     var license:String = haxelibJSON.license;
                     var contributor:Array<String> = haxelibJSON.contributors;
                     var description:String = haxelibJSON.description;
                     var dependencies:Dynamic = haxelibJSON.dependencies;
 
                     name.should.be('test-project');
+                    version.should.be('0.0.0');
                     license.should.be('MIT');
                     contributor[0].should.be('test holder');
                     description.should.be('my test project');
