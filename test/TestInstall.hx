@@ -26,7 +26,7 @@ class TestInstall extends BuddySuite implements Buddy {
 
             it('should install all the dependencies in the haxelib.json file', function () {
 
-                var commands = Install.install(ConfigImpl.get([]), io);
+                var commands = Install.get(io);
                 commands.length.should.be(2);
                 commands.foreach(function (command) {
                     return switch(command.cmd) {

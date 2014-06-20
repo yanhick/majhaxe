@@ -46,6 +46,7 @@ class Main
             case 'submit': Submit.get.bind(config, io);
             case 'init': Init.get.bind(config, io, resources, getInitInput);
             case 'local': Local.get.bind(config);
+            case 'install': Install.get.bind(io);
             default: Help.get.bind(io.output);
         };
     }

@@ -12,7 +12,7 @@ class Install
     /**
      * Install all the haxelibs listed as dependencies
      */
-    public static function install(config:Config, io:IO):Array<Command>
+    public static function get(io:IO):Array<Command>
     {
         var haxelib = Haxelib.get(io);
         if(haxelib.dependencies == null) throw 'no dependencies to install';
