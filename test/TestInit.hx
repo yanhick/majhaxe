@@ -17,6 +17,7 @@ class TestInit extends BuddySuite implements Buddy {
         var createInput = function () {
             return {
                 project: 'test-project',
+                url: 'project-url',
                 version: '0.0.0',
                 description: 'my test project',
                 license: MIT,

@@ -64,6 +64,7 @@ class TestResources extends BuddySuite implements Buddy {
                     var input:InitInput = {
                         project: 'test-project',
                         version: '0.0.0',
+                        url: 'project-url',
                         description: 'my test project',
                         license: MIT,
                         source: 'source',
@@ -79,9 +80,11 @@ class TestResources extends BuddySuite implements Buddy {
                     var contributor:Array<String> = haxelibJSON.contributors;
                     var description:String = haxelibJSON.description;
                     var dependencies:Dynamic = haxelibJSON.dependencies;
+                    var url:String = haxelibJSON.url;
 
                     name.should.be('test-project');
                     version.should.be('0.0.0');
+                    url.should.be('project-url');
                     license.should.be('MIT');
                     contributor[0].should.be('test holder');
                     description.should.be('my test project');

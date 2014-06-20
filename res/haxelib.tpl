@@ -1,6 +1,6 @@
 {
     "name": "::project::",
-    "url" : "http://haxe.org/haxelib",
+    "url" : "::url::",
     "license": "::license::",
     "tags": ["haxelib", "core"],
     "description": "::description::",
