@@ -14,7 +14,7 @@ class TestUserInput extends BuddySuite implements Buddy {
         describe('UserInput', function () {
 
             var getInput = function () {
-                return ['test', '0.0.0', 'description', 'http://project-url', 'source', 'MIT', 'holder', 'js php', 'lib1 lib2'];
+                return ['test', '0.0.0', 'description', 'http://project-url', 'source', 'MIT', 'holder', 'me you', 'js php', 'lib1 lib2'];
             };
             var stdin = function (inputs) {
                 return function () return inputs.shift();
@@ -38,6 +38,8 @@ class TestUserInput extends BuddySuite implements Buddy {
                     input.dependencies[1].should.be('lib2');
                     input.targets[0].should.be('js');
                     input.targets[1].should.be('php');
+                    input.contributors[0].should.be('me');
+                    input.contributors[1].should.be('you');
                 });
 
                 it('should default source dir to project name', function () {
@@ -70,7 +72,7 @@ class TestUserInput extends BuddySuite implements Buddy {
 
                 it('should filter invalid targets', function () {
                     var input = getInput();
-                    input[7] = 'js perl';
+                    input[8] = 'js perl';
                     var userInput = initUserInput(stdin(input));
                     userInput.targets.length.should.be(1);
                     userInput.targets[0].should.be('js');

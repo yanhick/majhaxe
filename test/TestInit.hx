@@ -24,6 +24,7 @@ class TestInit extends BuddySuite implements Buddy {
                 source: 'source',
                 holder: 'test holder',
                 dependencies: ['mylib'],
+                contributors: ['me', 'you'],
                 targets: ['js']
             };
         };

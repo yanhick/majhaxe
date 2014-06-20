@@ -6,5 +6,5 @@
     "description": "::description::",
     "version": "::version::",
     "releasenote": "initial release",
-    "contributors": ["::holder::"]
+    "contributors": ["::contributors::"]
 }

@@ -64,6 +64,7 @@ class TestResources extends BuddySuite implements Buddy {
                     var input:InitInput = {
                         project: 'test-project',
                         version: '0.0.0',
+                        contributors: ['me', 'you'],
                         url: 'project-url',
                         description: 'my test project',
                         license: MIT,
@@ -77,7 +78,7 @@ class TestResources extends BuddySuite implements Buddy {
                     var name:String = haxelibJSON.name;
                     var version:String = haxelibJSON.version;
                     var license:String = haxelibJSON.license;
-                    var contributor:Array<String> = haxelibJSON.contributors;
+                    var contributors:Array<String> = haxelibJSON.contributors;
                     var description:String = haxelibJSON.description;
                     var dependencies:Dynamic = haxelibJSON.dependencies;
                     var url:String = haxelibJSON.url;
@@ -86,7 +87,8 @@ class TestResources extends BuddySuite implements Buddy {
                     version.should.be('0.0.0');
                     url.should.be('project-url');
                     license.should.be('MIT');
-                    contributor[0].should.be('test holder');
+                    contributors[0].should.be('me');
+                    contributors[1].should.be('you');
                     description.should.be('my test project');
                 });
             });

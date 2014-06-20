@@ -14,6 +14,7 @@ typedef InitInput = {
     var description:String;
     var license:License;
     var holder:String;
+    var contributors:Array<String>;
     var source:String;
     var dependencies:Array<String>;
     var targets:Array<String>;
@@ -48,6 +49,9 @@ class UserInput
         output('license holder: ');
         var holder = input();
 
+        output('contributors: (space separated list)');
+        var contributors = input().split(' ');
+
         output('targets: (space separated list among: js flash php java cs neko cpp)');
         var targets = input()
             .split(' ')
@@ -66,6 +70,7 @@ class UserInput
             license: license,
             source: source,
             holder: holder,
+            contributors: contributors,
             dependencies: dependencies.split(' '),
             targets: targets
         }
