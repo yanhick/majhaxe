@@ -10,20 +10,11 @@ class Submit
 {
     public static function get(config:Config, io:IO):Array<Command>
     {
-        //must have a haxelib conf file
-        if (!io.exists('haxelib.json')) 
-            return throw 'haxelib.json not found';
-
         if (config.semver == null)
             return throw 'first argument need to be a valid semver';
 
-        var haxelib = null;
-        try {
-            haxelib = Json.parse(io.read(Constants.HAXELIB_JSON));
-        }
-        catch(e:Dynamic) {
-            return throw 'could not parse haxelib.json';
-        }
+        var haxelib = Haxelib.get(io);
+
         haxelib = Haxelib.update(config, haxelib);
 
         var commands = new Array<Command>();
