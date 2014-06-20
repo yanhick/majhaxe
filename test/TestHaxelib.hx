@@ -5,7 +5,7 @@ using buddy.Should;
 
 import Command;
 import Config;
-
+using Lambda;
 
 class TestHaxelib extends BuddySuite implements Buddy {
 
@@ -44,6 +44,18 @@ class TestHaxelib extends BuddySuite implements Buddy {
                     var commands = Haxelib.local(ConfigImpl.get(['minor']));
                     commands.length.should.be(3);
                     getBin(commands[0]).should.be('zip');
+                });
+            });
+
+            describe('#install', function () {
+                it('should return command to install haxelibs', function() {
+                    var commands = Haxelib.install(['mylib', 'yourlib']);
+                    commands.foreach(function (command) {
+                        return switch(command.cmd) {
+                            case bash('haxelib', ['install', 'mylib' | 'yourlib']): true;
+                            case _: false;
+                        }
+                    }).should.be(true);
                 });
             });
 
