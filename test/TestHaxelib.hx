@@ -19,6 +19,26 @@ class TestHaxelib extends BuddySuite implements Buddy {
         };
 
         describe('Haxelib', function () {
+
+            describe('#get', function () {
+
+                var io = {
+                    input: function () return '',
+                    output: function (str) {},
+                    read: function (content) return '{"foo":"bar"}',
+                    write: function (path, content){},
+                    exists: function (path) return true
+                };
+
+                it('should return a parsed haxelib.json', function () {
+                    var haxelib = Haxelib.get(io);
+                    var foo:String = haxelib.foo;
+                    foo.should.be('bar');
+                });
+
+                it('should throw if haxelib.json not found');
+                it('should throw if haxelib.json can\'t be parsed');
+            });
             describe('#local', function () {
                 it('should return commands to install haxelib locally', function () {
                     var commands = Haxelib.local(ConfigImpl.get(['minor']));
