@@ -77,6 +77,13 @@ majhaxe local
 --exclude //a space separate list of files to exclude from the zip installed locally
 --dry-run //print the commands that would be run without actually running them
 ```
+####Install
+
+Install all haxelib dependencies listed in haxelib.json
+
+```
+majhaxe install
+```
 
 ###Build
 

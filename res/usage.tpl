@@ -27,3 +27,6 @@ Install the haxelib locally
 options:
     --exclude - a space separate list of files to exclude from the zip submitted to haxelib
     --dry-run - print the commands that would be run without actually running them
+
+install
+Install all haxelib dependencies listed in haxelib.json
