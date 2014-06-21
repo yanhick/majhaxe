@@ -18,7 +18,7 @@ class Main
         var args = Sys.args();
 
         //if the tool is run using haxelib, the last argument
-        //will be the directory from which haxelib is called
+        //will be the directory from which haxelib is called.
         if (Sys.getEnv('HAXELIB_RUN') == '1')
         {
             Sys.setCwd(args.pop());

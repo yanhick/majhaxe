@@ -23,7 +23,6 @@ class FS
             err: 'could not cd into:' + name,
             info: 'change directory to:' + Sys.getCwd() + '/' + name
         }
-
     }
 
     public static function write(file, content):Command

@@ -2,7 +2,6 @@ package commands;
 
 import haxe.Json;
 
-
 /**
  * Submit to haxelib
  */
@@ -13,8 +12,10 @@ class Submit
         if (config.semver == null)
             return throw 'first argument need to be a valid semver';
 
+        //get parsed haxelib.json
         var haxelib = Haxelib.get(io);
 
+        //update version number
         haxelib = Haxelib.update(config, haxelib);
 
         var commands = new Array<Command>();

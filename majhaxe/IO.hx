@@ -1,10 +1,23 @@
 package;
 
+/**
+ * IO abstraction
+ */
 typedef IO = {
+
+    //output to stdout
     var output: String->Void;
+
+    //read from stdin
     var input: Void->String;
+
+    //read file
     var read: String->String;
+
+    //write file
     var write: String->String->Void;
+
+    //check if file exists
     var exists: String->Bool;
 }
 
