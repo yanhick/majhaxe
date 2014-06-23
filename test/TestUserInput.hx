@@ -4,7 +4,8 @@ import buddy.*;
 using buddy.Should;
 
 
-import Command;
+import Resources;
+import UserInput;
 
 
 class TestUserInput extends BuddySuite implements Buddy {
