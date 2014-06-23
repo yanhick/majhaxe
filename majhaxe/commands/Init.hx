@@ -9,11 +9,17 @@ import UserInput;
  */
 class Init
 {
+    /**
+     * Returns command to init a new project
+     */
     public static function get(config:Config, io:IO, resources:Resources, getInput:Void->InitInput):Array<Command>
     {
+        //get info for project from user (name, description...)
         var input = getInput();
+
         var commands = [];
 
+        //create git repo, optional
         if (!config.noGit)
             commands.push(Git.init());
 
@@ -33,6 +39,7 @@ class Init
             })
         });
 
+        //create folder for main haxe file
         commands.push(FS.mkdir(input.source));
 
         commands.push({
@@ -58,7 +65,6 @@ class Init
                 io.write('build.hxml', resources.createHXML(input.targets, input.dependencies, input.project));
             })
         });
-
 
         return commands;
     }

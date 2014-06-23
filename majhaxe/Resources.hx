@@ -4,6 +4,7 @@ import Command;
 import haxe.Template;
 using Lambda;
 import UserInput;
+import haxe.Json;
 
 typedef Resources = {
     var createMIT:Int->String->String;
@@ -29,7 +30,17 @@ class ResourcesImpl
             createReadme: function (name, description) return render('readme').execute({name: name, description: description}),
             createTravis: function (libs, build) return render('travis').execute({libs: libs, build: build}),
             createHXML: function (targets, libs, path) return render('hxml').execute({targets: filterTargets(targets), libs: libs, path: path}),
-            createHaxelib: function (input) return render('haxelib').execute(input)
+            createHaxelib: function (input) {
+                return Json.stringify({
+                    name: input.project,
+                    url: input.url,
+                    description: input.description,
+                    license: Std.string(input.license),
+                    version: input.version,
+                    releasenote: 'initial version',
+                    contributors: input.contributors
+                });
+            }
         };
     }
 

@@ -18,7 +18,7 @@ class Main
         var args = Sys.args();
 
         //if the tool is run using haxelib, the last argument
-        //will be the directory from which haxelib is called
+        //will be the directory from which haxelib is called.
         if (Sys.getEnv('HAXELIB_RUN') == '1')
         {
             Sys.setCwd(args.pop());
@@ -46,6 +46,7 @@ class Main
             case 'submit': Submit.get.bind(config, io);
             case 'init': Init.get.bind(config, io, resources, getInitInput);
             case 'local': Local.get.bind(config);
+            case 'install': Install.get.bind(io);
             default: Help.get.bind(io.output);
         };
     }

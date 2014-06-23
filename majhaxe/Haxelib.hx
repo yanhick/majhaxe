@@ -2,12 +2,34 @@ package;
 
 import semver.SemVer;
 import Command;
+import haxe.Json;
 
 /**
  * Communication and configuration for haxelib submission
  */ 
 class Haxelib
 {
+    //GET HAXELIB.JSON
+
+    /**
+     * returns a parsed haxelib.json object
+     */
+    public static function get(io:IO):Dynamic
+    {
+        //must have a haxelib conf file
+        if (!io.exists('haxelib.json')) 
+            return throw 'haxelib.json not found';
+
+        var haxelib = null;
+        try {
+            haxelib = Json.parse(io.read(Constants.HAXELIB_JSON));
+        }
+        catch(e:Dynamic) {
+            return throw 'could not parse haxelib.json';
+        }
+
+        return haxelib;
+    }
 
     //UPDATE HAXELIB.JSON
 
