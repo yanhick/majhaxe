@@ -32,8 +32,9 @@ class TestHaxelib extends BuddySuite implements Buddy {
 
                 it('should return a parsed haxelib.json', function () {
                     var haxelib = Haxelib.get(io);
-                    var foo:String = haxelib.foo;
-                    foo.should.be('bar');
+                    utest.Assert.same({
+                        foo: 'bar'
+                    }, haxelib);
                 });
 
                 it('should throw if haxelib.json not found');

@@ -9,6 +9,7 @@ before_script:
   - mkdir ~/haxelib
   - haxelib setup ~/haxelib
   - haxelib install arguable
+  - haxelib install utest
   - haxelib install buddy
   - git clone https://github.com/dpeek/hx-semver
   - haxelib dev hx-semver hx-semver/src

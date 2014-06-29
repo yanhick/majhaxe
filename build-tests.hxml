@@ -5,6 +5,7 @@
 -lib hx-semver
 -lib arguable
 -lib buddy
+-lib utest
 -resource res/mit.tpl@mit
 -resource res/main.tpl@main
 -resource res/readme.tpl@readme
