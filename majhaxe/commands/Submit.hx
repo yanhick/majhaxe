@@ -30,7 +30,7 @@ class Submit
             info: 'saving the updated haxelib.json',
             err: 'could not save updated haxelib.json',
             cmd: func(function () {
-                io.write(Constants.HAXELIB_JSON, Json.stringify(haxelib));
+                io.write(Constants.HAXELIB_JSON, Json.stringify(haxelib, null, ' '));
         })});
 
         //commit in git

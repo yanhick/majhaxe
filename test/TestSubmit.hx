@@ -21,7 +21,9 @@ class TestSubmit extends BuddySuite implements Buddy {
 
                         write: function (path, content) {
                             path.should.be(Constants.HAXELIB_JSON);
-                            content.should.be('{"version":"1.0.1"}');
+                            content.should.be('{
+ "version": "1.0.1"
+}');
                         },
                         read: function (path) {
                             path.should.be(Constants.HAXELIB_JSON);
