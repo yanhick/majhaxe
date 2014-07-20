@@ -94,5 +94,5 @@ make
 ###Test
 
 ```
-make run-tests
+make run-test
 ```
